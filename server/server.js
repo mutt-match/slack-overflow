@@ -38,7 +38,7 @@ io.on('connection', function(socket) {
     var name = data.name || "Guest " + nameCounter++;
     participants.push({ 
       socket: data.socket,
-      id:data.id,
+      id: data.id,
       name: name 
     });
 
