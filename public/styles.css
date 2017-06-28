@@ -128,11 +128,10 @@ padding-bottom:10px;
   padding-top: 30px;
 }
 
-.message-form {
-  width: 80%;
-  margin: auto;
-}
-
 p.participant {
   font-size: 22px;
+}
+
+md-input-container.message {
+  width: 80%;
 }
