@@ -33,16 +33,20 @@ var nameCounter  = 1;
 
 io.on('connection', function(socket) {
   console.log('CHAT SERVER CONNECTION SUCCESSFUL');
-  
   socket.on("add:user", function(data) {
-
-    var newName = "Guest " + nameCounter++;
-    participants.push({ id: data.id, name: newName });
+    socket.join(data.room);
+    var name = data.name || "Guest " + nameCounter++;
+    participants.push({ 
+      socket: data.socket,
+      id:data.id,
+      name: name 
+    });
 
     io.sockets.emit("new:user", {
       user: {
         id: data.id,
-        name: newName
+        name: name,
+        socket: data.socket
       },
       sender:"system",
       created_at: new Date().toISOString(),
@@ -50,9 +54,20 @@ io.on('connection', function(socket) {
     });
   });
 
+  socket.on("join", function(data) {
+    console.log(data.room);
+    socket.join(data.room);
+    io.to(data.room).emit("new:message", {
+      user: data.user,
+      sender:"system",
+      created_at: new Date().toISOString(),
+      message: data.message
+    });
+  });
+
   socket.on("add:message", function(data) {
     console.log(data);
-    io.sockets.emit("new:message", {
+    io.to(data.room).emit("new:message", {
       user: data.user,
       sender:"system",
       created_at: new Date().toISOString(),
