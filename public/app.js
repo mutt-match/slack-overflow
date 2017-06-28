@@ -16,6 +16,6 @@
           $location.path('/home');
         }
       })
-      
+
     });
 })();

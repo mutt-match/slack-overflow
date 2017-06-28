@@ -16,12 +16,16 @@ const authCheck = jwt({
 
 
 
-router.get('/api/public', function(req, res) {
-  res.json({message: 'hello from public endpoint, you dont need to be authenticated'})
-});
-router.get('/api/private', authCheck, function(req, res) {
-  res.json({message: 'hello from private endpoint, you are authenticated'})
-});
+router.get('/api/public', (req, res) => res.json({
+  message: 'hello from public endpoint, you dont need to be authenticated'
+}));
+router.get('/api/private', authCheck, (req, res) => res.json({
+  message: 'hello from private endpoint, you are authenticated'
+}));
+router.get('/blank', (req, res) => res.json({
+  message: 'hello from a blank endpoint, you dont need to be authenticated'
+}));
+
 
 router.get('/questions', authCheck, controller.fetchAllQuestions);
 
