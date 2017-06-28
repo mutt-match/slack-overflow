@@ -1,5 +1,27 @@
+'use strict';
 (function() {
-  'use strict';
+  angular
+    .module('slackOverflowApp')
+    .service('chatService', chat);
+
+  chat.$inject = ['socket'];
+
+  function chat(socket) {
+
+    this.email = null;
+    this.users = [];
+    this.email;
+    this.messages = {};
+
+    this.joinChatServer = (email) => {
+      this.email = email;
+    };
+
+    socket.on('join', joinChatServer);
+
+  };
+})();
+
   angular
     .module('slackOverflowApp')
     .service('chatService', ['$rootScope', function($rootScope) {

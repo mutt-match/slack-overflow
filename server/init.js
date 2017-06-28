@@ -80,7 +80,7 @@ the init function that you DON'T want to use depending on the situation!!!
 //     })
 // };
 
-const testAnswerDummy = {text: "test rep", questionId: 18, userId: 1};
+// const testAnswerDummy = {text: "test rep", questionId: 18, userId: 1};
 
 const init = () => {
   return db.authenticate()

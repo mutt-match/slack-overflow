@@ -19,6 +19,7 @@ app.use(cors());
 app.use('/', router);
 
 app.use(express.static(path.join(__dirname, '../')));
+app.use(express.static(path.join(__dirname, '../node_modules')));
 
 const users = {};
 io.on('connection', function(socket) {
@@ -60,6 +61,6 @@ io.on('connection', function(socket) {
 
 init()
   .then(() => {
-    server.listen(port, () => console.log(`app is listening on port ${port}`));
+    server.listen(port, () => console.log(`app is listening at http://localhost:${port}`));
   })
   .catch(err => console.error('unable to connect to database ', err));

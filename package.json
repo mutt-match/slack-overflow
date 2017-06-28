@@ -26,6 +26,7 @@
     "angular-jwt": "^0.1.9",
     "angular-material": "^1.1.4",
     "angular-messages": "^1.6.4",
+    "angular-socket-io": "^0.7.0",
     "angular-storage": "0.0.15",
     "auth0-angular": "^4.2.7",
     "auth0-js": "^8.7.0",
