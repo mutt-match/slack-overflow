@@ -1,0 +1,12 @@
+<md-content layout-margin>
+  <md-list> 
+
+    <md-list-item 
+      ng-repeat="participant in $ctrl.participants" 
+      participant="participant" 
+      ng-click="ctrl.clickUser(participant)">
+        <p class="participant">{{participant.name}}<p>
+    </md-list-item>
+
+  </md-list>
+</md-content>

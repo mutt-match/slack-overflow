@@ -1,4 +1,8 @@
-<li class="message">
-  <h2>{{$ctrl.message.from}}</h2>
-  <p>{{$ctrl.message.message}}</p>
-</li>
+<md-list-item class="md-2-line message">
+  <!--<img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />-->
+  <div class="md-list-item-text">
+    <h3>{{$ctrl.message.user.name}}</h3>
+    <p>{{$ctrl.message.message}}</p>
+  </div>
+<md-divider ></md-divider>
+</md-list-item>

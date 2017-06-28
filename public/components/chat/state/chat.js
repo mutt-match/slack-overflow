@@ -1,12 +1,18 @@
 'use strict';
 (function() {
+
   angular
     .module('slackOverflowApp')
-    .component('chat', chat);
+    .component('chat', {
+        bindings: {
+          participants: '<',
+          user: '<',
+          messages: '<',
+          postMessage: '<',
+          changeName: '<'
+        },
+        controller: 'ChatCtrl',
+        templateUrl: './public/components/chat/state/chat.html',
+    });
 
-  var chat = {
-    bindings: {},
-    templateUrl: './public/components/chat/chat.html',
-    controller: 'ChatCtrl'
-  };
-)();
+})();

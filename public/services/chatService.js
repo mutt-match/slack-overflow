@@ -1,26 +1,26 @@
 'use strict';
 (function() {
-  angular
-    .module('slackOverflowApp')
-    .service('chatService', chat);
+//   angular
+//     .module('slackOverflowApp')
+//     .service('chatService', chat);
 
-  chat.$inject = ['socket'];
+//   chat.$inject = ['socket'];
 
-  function chat(socket) {
+//   function chat(socket) {
 
-    this.email = null;
-    this.users = [];
-    this.email;
-    this.messages = {};
+//     this.email = null;
+//     this.users = [];
+//     this.email;
+//     this.messages = {};
 
-    this.joinChatServer = (email) => {
-      this.email = email;
-    };
+//     this.joinChatServer = (email) => {
+//       this.email = email;
+//     };
 
-    socket.on('join', joinChatServer);
+//     socket.on('join', joinChatServer);
 
-  };
-})();
+//   };
+// })();
 
   angular
     .module('slackOverflowApp')
