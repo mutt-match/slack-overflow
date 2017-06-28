@@ -1,14 +1,14 @@
 'use strict';
 (function() {
+
   angular
     .module('slackOverflowApp')
-    .component('messageList', messageList);
+    .component('messageList', {
+      bindings: {
+        messages: '<'
+      },
+      templateUrl: './public/components/chat/messageList/messageList.html',
+      controller: 'MessageListCtrl'
+    });
 
-  var messageList = {
-    bindings: {
-      messages: '<'
-    },
-    templateUrl: './public/components/chat/messageList.html',
-    controller: 'MessageListCtrl'
-  };
-)();
+})();

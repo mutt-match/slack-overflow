@@ -1,9 +1,20 @@
 <md-content> 
-  <span>beta v0.0.01</span>
-    <ui>
-      <message
+
+  <md-toolbar layout="row" class="md-hue-3">
+    <div class="md-toolbar-tools">
+      <span>Chat Interface</span>
+    </div>
+  </md-toolbar>
+
+  <md-list flex>
+
+
+    <message
         ng-repeat="message in $ctrl.messages"
-        message="message"
-      />
-    </ui>
-  </md-content>
+        message="message">
+    </message>
+
+
+  </md-list>
+
+</md-content>

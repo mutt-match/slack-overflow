@@ -62,10 +62,14 @@
         })
         .state('chatPage', {
           url: '/chatPage',
-          templateUrl: './public/components/templates/chatPage.html',
-          controller: 'chatPageController',
-          controllerAs: 'ctrl',
-          bindToController: true
+          component: 'chat',
+          resolve: {
+            participants: (socket) => socket.getParticipants(),
+            user: (socket) => socket.getUser(),
+            messages: (socket) => socket.getMessages(),
+            postMessage: (socket) => socket.postMessage,
+            changeName: (socket) => socket.changeName
+          }
         })
         .state('questionsAskedList', { 
           url: '/questions',

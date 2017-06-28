@@ -123,8 +123,16 @@ padding-bottom:10px;
 }
 
 .chat {
-  width: 400px; 
-  margin-left:350px; 
-  padding-top:20px;
+  width: 80%; 
+  margin: auto;
+  padding-top: 30px;
 }
 
+.message-form {
+  width: 80%;
+  margin: auto;
+}
+
+p.participant {
+  font-size: 22px;
+}

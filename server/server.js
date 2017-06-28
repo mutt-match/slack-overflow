@@ -22,45 +22,79 @@ app.use(express.static(path.join(__dirname, '../')));
 app.use(express.static(path.join(__dirname, '../node_modules')));
 
 const users = {};
+
+// io.on('connection', function(socket){
+//   socket.on('say to someone', function(id, msg){
+//     socket.broadcast.to(id).emit('my message', msg);
+//   });
+// });
+var participants = [];
+var nameCounter  = 1;
+
 io.on('connection', function(socket) {
   console.log('CHAT SERVER CONNECTION SUCCESSFUL');
+  
+  socket.on("add:user", function(data) {
 
-  socket.on('join', function(email, callback) {
-    console.log('USER JOINED, email: ', email);
-    socket.email = email;
-    users[socket.email] = socket;
-    console.log('socket.email: ', socket.email);
-    console.log('CURRENT USER LIST, users: ', users);
-    updateUsers();
+    var newName = "Guest " + nameCounter++;
+    participants.push({ id: data.id, name: newName });
+
+    io.sockets.emit("new:user", {
+      user: {
+        id: data.id,
+        name: newName
+      },
+      sender:"system",
+      created_at: new Date().toISOString(),
+      participants: participants
+    });
   });
 
-  socket.on('exitChatServer', function(email, callback) {
-    console.log('THIS IS EXIT, EMAIL : ', email);
-    delete users[email];
-    console.log('DELETE USERS', Object.keys(users));
-    updateUsers();
+  socket.on("add:message", function(data) {
+    console.log(data);
+    io.sockets.emit("new:message", {
+      user: data.user,
+      sender:"system",
+      created_at: new Date().toISOString(),
+      message: data.message
+    });
   });
 
-  socket.on('newMessage', function(messageBody, callback) {
-    var sendTo = messageBody.email;
-    var message = messageBody.message;
-    messageBody.from = socket.email
-    console.log('SEND TO: ', sendTo, ' MESSAGE: ', message, ' FROM: ', socket.email);
-    console.log('MESSAGE BODY', messageBody);
-    io.emit(sendTo, messageBody);
-    io.emit(messageBody.from, messageBody);
-    // socket.emit(sendTo, message);
-  });
+  // socket.on('join', function(email, callback) {
+  //   console.log('USER JOINED, email: ', email);
+  //   socket.email = email;
+  //   users[socket.email] = socket;
+  //   console.log('socket.email: ', socket.email);
+  //   console.log('CURRENT USER LIST, users: ', users);
+  //   updateUsers();
+  // });
 
-  function updateUsers() {
-    console.log('UPDATING USER LIST: ', Object.keys(users));
-    io.sockets.emit('users', Object.keys(users));
-  }
+
+  // socket.on('exitChatServer', function(email, callback) {
+  //   console.log('THIS IS EXIT, EMAIL : ', email);
+  //   delete users[email];
+  //   console.log('DELETE USERS', Object.keys(users));
+  //   updateUsers();
+  // });
+
+  // socket.on('add:message', function(messageBody, callback) {
+  //   var sendTo = messageBody.email;
+  //   var message = messageBody.message;
+  //   messageBody.from = socket.email
+  //   console.log('SEND TO: ', sendTo, ' MESSAGE: ', message, ' FROM: ', socket.email);
+  //   console.log('MESSAGE BODY', messageBody);
+  //   io.emit(sendTo, messageBody);
+  //   io.emit(messageBody.from, messageBody);
+  //   // socket.emit(sendTo, message);
+  // });
+
+  // function updateUsers() {
+  //   console.log('UPDATING USER LIST: ', Object.keys(users));
+  //   io.sockets.emit('users', Object.keys(users));
+  // }
 
 });
 
 init()
-  .then(() => {
-    server.listen(port, () => console.log(`app is listening at http://localhost:${port}`));
-  })
+  .then(() => server.listen(port, () => console.log(`app is listening at http://localhost:${port}`)))
   .catch(err => console.error('unable to connect to database ', err));

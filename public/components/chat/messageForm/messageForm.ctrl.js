@@ -7,6 +7,9 @@
   messageFormCtrl.$inject = [];
 
   function messageFormCtrl() {
-
-  }
-)();
+    this.submit = () => {
+      this.onSubmit(this.message);
+      this.message ='';
+    }
+  };
+})();
