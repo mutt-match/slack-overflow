@@ -57,7 +57,7 @@
       );
 
       socket.on('new:user', (data) => {
-        if (data.user.id === sessionId) service.setUser(data.user);
+        if (data.user.socket === sessionId) service.setUser(data.user);
         service.addParticipant(data.user);
         console.log('new user', service.getUser(), service.getParticipants());
       });
@@ -69,7 +69,7 @@
     
     // publishers
     service.postMessage = (msg) => {
-      // console.log('send message', msg);
+      console.log('send message', service.getUser());
       socket.emit('add:message', { message: msg, user: service.getUser(), room: service.getRoom() });
     };
 
