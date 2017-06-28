@@ -4,9 +4,8 @@
     .module('slackOverflowApp')
     .controller('toolbarController', ['auth', 'store', '$location', 'authService', 'userService', 'QuestionsService', 'chatService',
        function(auth, store, $location, authService, userService, QuestionsService, chatService) {
-      console.log('hi')
 
-      var vm = this;
+      let vm = this;
       vm.redirectHome = redirectHome;
       vm.login = login;
       vm.logout = logout;
