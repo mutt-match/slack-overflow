@@ -1,8 +1,8 @@
 (function() {
   angular.module('slackOverflowApp')
 
-  .controller('questionAnsweredEntryCtrl', ['$log', 'stackService', 'QuestionsService', 'store', '$stateParams', 'userService',
-      function($log, stackService, QuestionsService, store, $stateParams, userService) {
+  .controller('questionAnsweredEntryCtrl', ['$http', '$log', 'stackService', 'QuestionsService', 'store', '$stateParams', 'userService',
+      function($http, $log, stackService, QuestionsService, store, $stateParams, userService) {
 
       var vm = this;
       vm.questionId = $stateParams.id;
@@ -81,7 +81,6 @@
           })
       };
 
-      // $log.info('stackService', stackService);
 
       stackService.getStackAnswers()
         .then(resp => {

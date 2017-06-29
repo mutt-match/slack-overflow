@@ -2,8 +2,8 @@
   'use strict';
   angular.module('slackOverflowApp')
 
-  .config(['$provide', 'authProvider', '$urlRouterProvider', '$stateProvider', '$httpProvider', 'jwtInterceptorProvider',
-    function($provide, authProvider, $urlRouterProvider, $stateProvider, $httpProvider, jwtInterceptorProvider) {
+  .config(['jwtOptionsProvider', '$sceDelegateProvider', '$provide', 'authProvider', '$urlRouterProvider', '$stateProvider', '$httpProvider', 'jwtInterceptorProvider',
+    function(jwtOptionsProvider, $sceDelegateProvider, $provide, authProvider, $urlRouterProvider, $stateProvider, $httpProvider, jwtInterceptorProvider) {
       // INSEOK
       jwtInterceptorProvider.tokenGetter = function(store) {
         return store.get('id_token');
@@ -31,6 +31,18 @@
       $provide.factory('redirect', redirect);
       $httpProvider.interceptors.push('redirect');
       $httpProvider.interceptors.push('jwtInterceptor');
+
+      console.log('jwtOptionsProvider', jwtOptionsProvider);
+
+
+      jwtOptionsProvider.config({
+        whiteListedDomains: [
+        'self',
+        'localhost',
+        'https://stackoverflow.com/',
+        'https://api.stackexchange.com/'
+        ]
+      });
 
 
       $stateProvider
