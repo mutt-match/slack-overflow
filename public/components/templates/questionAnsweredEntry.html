@@ -35,3 +35,14 @@
     <button class="btn btn-success" ng-click="ctrl.postAnswer()" ui-sref="questionsAnsweredList">Submit Comment</button>
     <button class="btn btn-danger" ng-click="ctrl.closeQuestion()" ui-sref="questionsAnsweredList">Close Question</button>
   </div>
+
+  <div class="Answers" ng-repeat="stackAnswer in ctrl.stackAnswers">
+    STACK ANSWER {{stackAnswer}}
+    <br>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <!-- -- -->

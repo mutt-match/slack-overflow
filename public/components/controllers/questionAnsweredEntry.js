@@ -1,24 +1,26 @@
 (function() {
-  angular
-    .module('slackOverflowApp')
-    .controller('questionAnsweredEntryCtrl', ['QuestionsService', 'store', '$stateParams', 'userService', 
-      function(QuestionsService, store, $stateParams, userService) {
-      
+  angular.module('slackOverflowApp')
+
+  .controller('questionAnsweredEntryCtrl', ['$log', 'stackService', 'QuestionsService', 'store', '$stateParams', 'userService',
+      function($log, stackService, QuestionsService, store, $stateParams, userService) {
+
       var vm = this;
       vm.questionId = $stateParams.id;
       vm.questionAndAnswers;
       vm.notClicked = true;
       vm.repAdded = false;
 
+      vm.stackAnswers = [5, 4, 3, 2, 1];
+
       vm.closeQuestion = () => {
-        QuestionsService.closeQuestion(vm.questionId) 
+        QuestionsService.closeQuestion(vm.questionId)
           .then(() => {
             console.log('successfully closed the question');
           })
           .catch((err) => {
             console.error('error closing question ', err);
           })
-      }
+      };
 
       vm.addRep = (userId) => {
         vm.repAdded = true;
@@ -28,12 +30,12 @@
             console.log('successfully added reputation');
             userService.getUserInfo(store.get('profile'));
           })
-      }
+      };
 
       QuestionsService.getQuestion()
         .then((question) => {
           obj = question.data;
-          console.log(obj);
+          console.log('obj', obj);
         })
         .then(() => {
           var output = {
@@ -63,21 +65,33 @@
         })
         .catch((err) => {
           console.error('error fetching question and answers ', err);
-        })
+        });
 
-      vm.postAnswer = function () {
+      vm.postAnswer = function() {
         var body = {
           userId: store.get('profile').userInfo.id,
           text: vm.answerBody
-        }
+        };
 
         QuestionsService.postAnswer(body, vm.questionId)
-        .then((answer) => {
-          console.log('answer: ' , answer)
-          console.log(vm.questionAndAnswers.answer)
-          //get this to auto update ng-repeat
+          .then((answer) => {
+            console.log('answer: ', answer)
+            console.log(vm.questionAndAnswers.answer)
+              //get this to auto update ng-repeat
+          })
+      };
+
+      // $log.info('stackService', stackService);
+
+      stackService.getStackAnswers()
+        .then(resp => {
+          $log.info('stack answers BEFORE', vm.stackAnswers);
+          vm.stackAnswers = resp;
+          $log.info('stack answers AFTER', vm.stackAnswers);
         })
-      }
+        .catch(err => $log.info(err));
+
+
 
     }])
 })();

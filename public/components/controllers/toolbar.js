@@ -48,7 +48,7 @@
 
         SE.authenticate({
           success: function(data) {
-            $log.info('$$$$$$$$$$$$$$$$$$$', data);
+            $log.info('$$$', data);
             alert(
               'User Authorized with account id = ' +
               data.networkUsers[0].account_id + ', got access token = ' +
@@ -56,7 +56,7 @@
             );
           },
           error: function(data) {
-            $log.info('vvvvvvvvvvvvvvv', data);
+            $log.info('vvv', data);
             alert('An error occurred:\n' + data.errorName + '\n' + data.errorMessage);
           },
           networkUsers: true

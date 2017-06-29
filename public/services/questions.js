@@ -1,4 +1,6 @@
-angular.module('slackOverflowApp').service('QuestionsService', ['$http', 'store', '$stateParams',
+angular.module('slackOverflowApp')
+
+.service('QuestionsService', ['$http', 'store', '$stateParams',
   function($http, store, $stateParams) {
 
     // commented out functions have been moved to their appropriate controllers!

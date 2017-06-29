@@ -11,9 +11,8 @@
       QuestionsService.getQuestionsForUser(vm.userId)
         .then((resp) => {
           answersObj = resp.data;
-          console.log(answersObj);
-          // console.log('resp.data', resp.data);
-          // console.log('clicked', answersObj);
+          console.log('answersObj', answersObj);
+          console.log('resp.data', resp.data);
         })
         .then(() => {
           var name = answersObj.results[0].name;

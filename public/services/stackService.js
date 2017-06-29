@@ -1,12 +1,11 @@
-(function() {
-  angular.module('slackOverflowApp')
+angular.module('slackOverflowApp')
 
-  .service('stackService', ['$http', '$log', function($http, $log) {
+.service('stackService', ['$http', '$log', function($http, $log) {
 
-    this.getAnswers = (data) => {
-      console.log('###', data);
 
-    }
+  this.getStackAnswers = function() {
+    return $http.get('/questions');
 
-  }])
-})();
+  };
+
+}]);
