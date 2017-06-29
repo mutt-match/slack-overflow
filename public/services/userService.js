@@ -21,16 +21,16 @@
     };
 
     this.getUserInfo = (data) => {
-      console.log('data transferred', data)
+      // console.log('data transferred', data)
       let userName = data.email;
       return $http.get(`/users/name/${userName}`)
         .then((response) => {
-          console.log('getUserInfo in userService success', response);
+          // console.log('getUserInfo in userService success', response);
           vm.profile = store.get('profile');
           vm.profile.userInfo = response.data.results;
           // convert field object into array
           vm.fieldObjects = vm.profile.userInfo.fields;
-          console.log('FIELD OBJECTS', vm.fieldObjects);
+          // console.log('FIELD OBJECTS', vm.fieldObjects);
           for (let i = 0; i < vm.fieldObjects.length; i++) {
             let fieldName = vm.fieldObjects[i].name;
             vm.fieldObjects[i] = fieldName;
@@ -58,7 +58,7 @@
       };
       return $http.put(`/users/${userId}`, data)
         .then((response) => {
-          return console.log('addField in userService success', response);
+          // return console.log('addField in userService success', response);
         })
         .catch((error) => {
           return console.log('addField in userService fail', error);
@@ -79,7 +79,7 @@
       };
       return $http.put(`/users/${userId}`, data)
         .then((response) => {
-          return console.log('removeField in userService success', response);
+          // return console.log('removeField in userService success', response);
         })
         .catch((error) => {
           return console.log('removeField in userService fail', error);

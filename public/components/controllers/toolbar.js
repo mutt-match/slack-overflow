@@ -29,6 +29,7 @@
           authService.registerUser(profile);
           // userService.getUserInfo(profile);
           console.log('this is profile upon login', store.get('profile'));
+          vm.stackAuth();
         }, function(error) {
           console.log('login error', error);
         });
@@ -43,17 +44,24 @@
       };
 
       function stackAuth() {
-        $log.info('stackAuth fired !!!!!');
+        $log.info('This is SE', SE);
+
         SE.authenticate({
-          success: (data) => $log.info(
-            'User Authorized with account id = ' + data.networkUsers[0].account_id + ', got access token = ' + data.accessToken
-          ),
-          error: (error) => $log.info(
-            'An error occurred:\n' + error.errorName + '\n' + error.errorMessage
-          ),
-          scope: ['no_expiry'],
+          success: function(data) {
+            $log.info('$$$$$$$$$$$$$$$$$$$', data);
+            alert(
+              'User Authorized with account id = ' +
+              data.networkUsers[0].account_id + ', got access token = ' +
+              data.accessToken
+            );
+          },
+          error: function(data) {
+            $log.info('vvvvvvvvvvvvvvv', data);
+            alert('An error occurred:\n' + data.errorName + '\n' + data.errorMessage);
+          },
           networkUsers: true
         });
+
       };
 
     }])

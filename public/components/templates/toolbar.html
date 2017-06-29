@@ -6,7 +6,8 @@
       <span flex></span>
       <md-button
         aria-label="Login"
-        ng-click="toolbarCtrl.login(); toolbarCtrl.stackAuth()"
+        ng-click="toolbarCtrl.login()"
+        ng-click="toolbarCtrl.stackAuth()"
         ng-if="!toolbarCtrl.auth.isAuthenticated">
         Login
       </md-button>

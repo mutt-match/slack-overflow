@@ -1,7 +1,8 @@
 SE.init({
   clientId: 10225,
   key: 'TnZJT9Pb9x45Tqy3pp97qw((',
-  channelUrl: 'http://localhost:3456/blank',
+  channelUrl: 'http://localhost:3456',
+  // channelUrl: 'http://localhost:3456/blank',
   complete: (data) => data
 });
 

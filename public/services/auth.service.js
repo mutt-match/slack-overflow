@@ -8,12 +8,12 @@
         user: data.email,
         image: data.picture
       };
-      console.log('this is email from registerUser', user);
+      // console.log('this is email from registerUser', user);
       return $http.post('/users', user)
         .then((success) => {
           userService.getUserInfo(data);
           chatService.joinChatServer(data.email);
-          return console.log('registerUser in authService success', success);
+          // return console.log('registerUser in authService success', success);
         })
         .catch((error) => {
           return console.log('registerUser in authService fail', error);

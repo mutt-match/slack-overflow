@@ -22,21 +22,21 @@ app.use(express.static(path.join(__dirname, '../')));
 
 const users = {};
 io.on('connection', function(socket) {
-  console.log('CHAT SERVER CONNECTION SUCCESSFUL');
+  // console.log('CHAT SERVER CONNECTION SUCCESSFUL');
 
   socket.on('join', function(email, callback) {
-    console.log('USER JOINED, email: ', email);
+    // console.log('USER JOINED, email: ', email);
     socket.email = email;
     users[socket.email] = socket;
-    console.log('socket.email: ', socket.email);
-    console.log('CURRENT USER LIST, users: ', users);
+    // console.log('socket.email: ', socket.email);
+    // console.log('CURRENT USER LIST, users: ', users);
     updateUsers();
   });
 
   socket.on('exitChatServer', function(email, callback) {
-    console.log('THIS IS EXIT, EMAIL : ', email);
+    // console.log('THIS IS EXIT, EMAIL : ', email);
     delete users[email];
-    console.log('DELETE USERS', Object.keys(users));
+    // console.log('DELETE USERS', Object.keys(users));
     updateUsers();
   });
 
@@ -44,15 +44,15 @@ io.on('connection', function(socket) {
     var sendTo = messageBody.email;
     var message = messageBody.message;
     messageBody.from = socket.email
-    console.log('SEND TO: ', sendTo, ' MESSAGE: ', message, ' FROM: ', socket.email);
-    console.log('MESSAGE BODY', messageBody);
+      // console.log('SEND TO: ', sendTo, ' MESSAGE: ', message, ' FROM: ', socket.email);
+      // console.log('MESSAGE BODY', messageBody);
     io.emit(sendTo, messageBody);
     io.emit(messageBody.from, messageBody);
     // socket.emit(sendTo, message);
   });
 
   function updateUsers() {
-    console.log('UPDATING USER LIST: ', Object.keys(users));
+    // console.log('UPDATING USER LIST: ', Object.keys(users));
     io.sockets.emit('users', Object.keys(users));
   }
 
