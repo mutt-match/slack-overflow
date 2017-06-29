@@ -28,12 +28,13 @@
     // helpers
     this.changeName = (newName) => user.name = newName; 
     this.addParticipant = (user) => participants.push(user);
-    this.removeParticipant = (id) => {
+    this.removeParticipant = (socket) => {
       participants.forEach((user, idx) => {
-        if (user.id === id) {
+        if (user.socket === socket) {
           participants.splice(idx, 1);
         }
       })
+      console.log('after removal', participants);
     }
     this.newMessage = (msg) => messages[room].push(msg);
 
@@ -52,14 +53,13 @@
     // listeners
     socket.on('connect', () => {
       console.log('store', store.get('profile'));
-      let sessionId = socket.id;
+
       let userId = store.get('profile').userInfo.id;
       let name = store.get('profile').name;
-      console.log(`WEBSOCKET connected with session id ${sessionId}`);
+      console.log(`WEBSOCKET connected with session id ${socket.id}`);
       socket.emit(
         'add:user', 
         { 
-          socket: sessionId,
           id: userId,
           name: name,
           room: service.getRoom() 
@@ -71,6 +71,7 @@
           service.setUser(data.user);
           data.participants.forEach(user => service.addParticipant(user));
         } else {
+          console.log('addd new user not initial', data);
           service.addParticipant(data.user);
         }
         console.log('new user', service.getUser(), service.getParticipants());
@@ -81,7 +82,7 @@
       });
 
       socket.on('disconnect:user', (data) => {
-        service.par
+        service.removeParticipant(data.socket);
       })
     });
     

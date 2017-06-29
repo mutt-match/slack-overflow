@@ -30,19 +30,19 @@ const users = {};
 // });
 var participants = [];
 var nameCounter  = 1;
-var disconnected = {};
+// var disconnected = {};
 
 io.on('connection', function(socket) {
 
   var room = null;
 
-  console.log(`socket connected at ${socket.id}`);
+  console.log(`socket connected at ${socket}`);
 
   socket.on("add:user", function(data) {
     var name = data.name || "Guest " + nameCounter++;
     userId = data.id;
-    
-    if (disconnected[socket]) return;
+    console.log('adding new user', data);
+    // if (!data.socket) return;
 
     console.log('add participants before', participants);
     
@@ -60,7 +60,7 @@ io.on('connection', function(socket) {
       user: {
         id: data.id,
         name: name,
-        socket: data.socket
+        socket: socket.id
       },
       sender:"system",
       created_at: new Date().toISOString(),
@@ -89,7 +89,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on("disconnect", () => {
-    disconnected[socket.id] = true;
+    // disconnected[socket.id] = true;
     console.log('socket id', socket.id)
     console.log('disconnect participants before', participants);
     participants.forEach((user, idx)=> {
@@ -98,7 +98,7 @@ io.on('connection', function(socket) {
       }
     });
     console.log('disconnect participants after', participants);
-    io.sockets.emit('disconnect:user', { participants: participants });
+    io.sockets.emit('disconnect:user', { socket: socket.id });
   });
   
   // socket.on('join', function(email, callback) {
