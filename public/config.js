@@ -64,11 +64,14 @@
           url: '/chatPage',
           component: 'chat',
           resolve: {
-            participants: (socket) => socket.getParticipants(),
+            participants: (socket) => socket.getParticipants,
             user: (socket) => socket.getUser(),
-            messages: (socket) => socket.getMessages(),
+            messages: (socket) => socket.getMessages,
+            room: (socket) => socket.getRoom,
             postMessage: (socket) => socket.postMessage,
-            changeName: (socket) => socket.changeName
+            changeName: (socket) => socket.changeName,
+            changeRoom: (socket) => socket.changeRoom
+
           }
         })
         .state('questionsAskedList', { 

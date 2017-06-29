@@ -1,11 +1,20 @@
-<md-content layout-margin>
+<md-content layout-margin layout="column">
   <md-list> 
+
+    <md-list-item
+      ng-click="$ctrl.joinLobby()"
+      >
+      <p class="lobby" flex="100">Lobby</p>
+    </md-list-item>  
+
+    <md-divider ></md-divider>
 
     <md-list-item 
       ng-repeat="participant in $ctrl.participants" 
       participant="participant" 
-      ng-click="ctrl.clickUser(participant)">
-        <p class="participant">{{participant.name}}<p>
+      ng-click="$ctrl.changeRoom(participant.id)">
+      <!--ng-if="localStorage.get('profile').userInfo.id != participant.id">-->
+        <p class="participant" flex="100">{{participant.name}}<p>
     </md-list-item>
 
   </md-list>

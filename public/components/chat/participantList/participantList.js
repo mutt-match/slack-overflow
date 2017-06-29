@@ -5,7 +5,9 @@
     .module('slackOverflowApp')
     .component('participantList', {
       bindings: {
-        participants: '<'
+        participants: '<',
+        changeRoom: '<',
+        joinLobby: '<'
       },
       templateUrl: './public/components/chat/participantList/participantList.html',
       controller: 'ParticipantListCtrl'
