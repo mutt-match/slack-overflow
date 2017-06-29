@@ -10,10 +10,10 @@
     <md-divider ></md-divider>
 
     <md-list-item 
-      ng-repeat="participant in $ctrl.participants" 
+      ng-repeat="participant in $ctrl.participants | otherUsersFilter" 
       participant="participant" 
       ng-click="$ctrl.changeRoom(participant.id)">
-      <!--ng-if="localStorage.get('profile').userInfo.id != participant.id">-->
+      <!--ng-if="localStorage.profile.userInfo.id != participant.id">-->
         <p class="participant" flex="100">{{participant.name}}<p>
     </md-list-item>
 

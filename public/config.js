@@ -65,7 +65,7 @@
           component: 'chat',
           resolve: {
             participants: (socket) => socket.getParticipants,
-            user: (socket) => socket.getUser(),
+            user: (socket) => socket.getUser,
             messages: (socket) => socket.getMessages,
             room: (socket) => socket.getRoom,
             postMessage: (socket) => socket.postMessage,
