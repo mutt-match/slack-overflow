@@ -4,22 +4,11 @@
     .module('slackOverflowApp')
     .controller('ChatCtrl', chatCtrl);
 
-  chatCtrl.$inject = ['socket', 'store'];
+  chatCtrl.$inject = [];
 
-  function chatCtrl(socket, store) {
-    // this.toggleLeft = buildToggler('left');
-    // this.toggleRight = buildToggler('right');
-
+  function chatCtrl() {
     this.joinLobby = () => {
-      this.changeRoom('lobby');
+      this.changeRoom('Lobby');
     };
-
-    // this.email = store.get('profile').email;
-
-    // function buildToggler(componentId) {
-    //   return function() {
-    //     $mdSidenav(componentId).toggle();
-    //   };
-    // };
   };
 })();

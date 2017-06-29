@@ -40,13 +40,15 @@
   <!--</section>-->
   
   <div flex="30">
-    <participant-list 
-      participants="$ctrl.participants()"
-      join-lobby="$ctrl.joinLobby"
-      change-room="$ctrl.changeRoom">
-    </participant-list>
+    <div flex="100">
+      <participant-list 
+        participants="$ctrl.participants()"
+        join-lobby="$ctrl.joinLobby"
+        change-room="$ctrl.changeRoom">
+      </participant-list>
+    </div>
   </div>
-  <div flex="70">
+  <div flex="60" flex-offset="10">
     <message-list 
       messages="$ctrl.messages()"
       room="$ctrl.room()">

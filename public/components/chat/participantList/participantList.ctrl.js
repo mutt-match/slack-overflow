@@ -2,11 +2,10 @@
 (function() {
   angular
     .module('slackOverflowApp')
-    .controller('ParticipantListCtrl', participantCtrl);
+    .controller('ParticipantListCtrl', participantCtrl)
 
   participantCtrl.$inject = [];
 
-  function participantCtrl() {
-    
-  };
+  function participantCtrl() {};
+
 })();
