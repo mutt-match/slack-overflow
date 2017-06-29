@@ -4,7 +4,7 @@ angular.module('slackOverflowApp')
 
 
   this.getStackAnswers = function() {
-    return $http.get('/questions');
+    return $http.get('https://stackoverflow.com/info');
 
   };
 

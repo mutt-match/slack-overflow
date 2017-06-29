@@ -46,4 +46,6 @@ router.put('/users/:id', authCheck, controller.updateUserFieldInfo);
 
 router.put('/reputation/:id', authCheck, controller.addReputation);
 
+// router.get();
+
 module.exports = router;

@@ -85,7 +85,6 @@
 
       stackService.getStackAnswers()
         .then(resp => {
-          $log.info('stack answers BEFORE', vm.stackAnswers);
           vm.stackAnswers = resp;
           $log.info('stack answers AFTER', vm.stackAnswers);
         })
