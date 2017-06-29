@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-const config = require('../../config');
+const dbUrl = require('../../config');
 
 
-const db = new Sequelize(config.dbUrl, {
+const db = new Sequelize(dbUrl, {
     pool: {
       max: 3,
       min: 0,

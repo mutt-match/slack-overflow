@@ -10,7 +10,8 @@ const {
   questionDummy,
   answerDummy,
   user_fieldDummy,
-  fieldDummy
+  fieldDummy, 
+  User_Quest_Fav
 } = require('./models/tableModels');
 
 
@@ -33,6 +34,7 @@ the init function that you DON'T want to use depending on the situation!!!
 //     .then(() => Answer.sync({force: true}))
 //     .then(() => Message.sync({force: true}))
 //     .then(() => User_Field.sync({force: true}))
+//     .then(() => User_Quest_Fav.sync({force: true}))
 //     .then(() => {
 //       User.bulkCreate(userDummy)
 //       .then(() => {

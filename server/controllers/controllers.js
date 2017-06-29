@@ -164,6 +164,39 @@ const addReputation = (req, res) => {
     })
 }
 
+const addFavorite = (req, res) => {
+  console.log('req.paramsId-->', req.params.id);
+  let favUserId = req.params.id;
+  let outerUser;
+  console.log('req.questionId-->',req.body.questionId);
+
+  User.find({ where: {id: favUserId}})
+    .then((user) => { 
+      console.log(user);
+      outerUser = user;
+      Question.find({ where: {
+        id: req.body.questionId
+      }}).then((question) => {
+       console.log('question in db controller, question', question)
+        outerUser.setQuestions([question]);
+      })
+    })
+    // .then((user) => {
+    //   console.log('user info-->',user);
+    //   let newFav = user.dataValues.User_Quest_Fav;//undone;
+    //   console.log('newFav',newFav);
+    //   User.update({
+    //     favorite : newFav
+    //   }, {where: { id: favUserId}})
+    // })
+    .then(() => {
+      res.sendStatus(201, 'successful favorite');
+    })
+    .catch((err) => {
+      console.log('error addding favorite', err);
+    })
+}
+
 const fetchUserInfo = (req, res) => {
   User.find({ 
     where: { id: req.params.id },
@@ -222,5 +255,6 @@ module.exports = {
   addReputation: addReputation,
   fetchUserInfo: fetchUserInfo,
   closeQuestion: closeQuestion,
-  fetchUserByName: fetchUserByName
+  fetchUserByName: fetchUserByName,
+  addFavorite: addFavorite
 }

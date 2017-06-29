@@ -146,6 +146,10 @@ angular.module('slackOverflowApp').service('QuestionsService', ['$http', 'store'
 
     addRep: function (userId) {
       return $http.put('/reputation/' + userId);
+    },
+
+    addToFavorite: function(questionId) {
+      return $http.post('/favorite/' + questionId);
     }
     
   }
