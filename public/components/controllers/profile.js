@@ -8,7 +8,7 @@
       vm.getFields = getFields;
       vm.addField = addField;
       vm.removeField = removeField;
-      
+
       vm.message;
       vm.fields = vm.profile.userInfo.fields
 
@@ -17,7 +17,7 @@
         vm.fields = vm.profile.userInfo.fields;
       };
       vm.getFields();
-      
+
       function addField(field) {
         let isUnique = true;
         for (let i = 0; i < vm.profile.userInfo.fields.length; i++) {
@@ -29,13 +29,13 @@
           vm.profile.userInfo.fields.push(field);
           store.set('profile', vm.profile);
           return userService.addField(field)
-          .then((response) => {
-            vm.getFields();
-            console.log('addField in profile success', response);
-          })
-          .catch((error) => {
-            console.log('addField in profile fail', error);
-          });
+            .then((response) => {
+              vm.getFields();
+              console.log('addField in profile success', response);
+            })
+            .catch((error) => {
+              console.log('addField in profile fail', error);
+            });
         }
       };
 
@@ -45,6 +45,6 @@
         store.set('profile', vm.profile);
         userService.removeField();
       };
-      
+
     }]);
 })();
