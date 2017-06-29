@@ -7,6 +7,6 @@
   participantCtrl.$inject = [];
 
   function participantCtrl() {
-
+    
   };
 })();

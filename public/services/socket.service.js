@@ -11,8 +11,8 @@
     // closure vars
     let participants = [];
     let user = null;
-    let messages = { 'lobby': [] };
-    let room = 'lobby';
+    let messages = { 'Lobby': [] };
+    let room = 'Lobby';
 
     // getters, setters
     this.getParticipants = () => participants;
@@ -20,11 +20,21 @@
     this.getMessages = () => messages[room];
     this.setUser = (newUser) => user = newUser;
     this.getRoom = () => room;
-    this.setRoom = (newRoom) => room = newRoom;
+    this.setRoom = (newRoom) => {
+      room = newRoom;
+      messages[room] = messages[room] || [];
+    };
 
     // helpers
     this.changeName = (newName) => user.name = newName; 
     this.addParticipant = (user) => participants.push(user);
+    this.removeParticipant = (id) => {
+      participants.forEach((user, idx) => {
+        if (user.id === id) {
+          participants.splice(idx, 1);
+        }
+      })
+    }
     this.newMessage = (msg) => messages[room].push(msg);
 
     // attach socket with handlers
@@ -57,20 +67,41 @@
       );
 
       socket.on('new:user', (data) => {
-        if (data.user.socket === sessionId) service.setUser(data.user);
-        service.addParticipant(data.user);
+        if (data.user.id === userId) {
+          service.setUser(data.user);
+          data.participants.forEach(user => service.addParticipant(user));
+        } else {
+          service.addParticipant(data.user);
+        }
         console.log('new user', service.getUser(), service.getParticipants());
       });
       
       socket.on('new:message', (data) => {
         service.newMessage(data);
       });
+
+      socket.on('disconnect:user', (data) => {
+        service.par
+      })
     });
     
     // publishers
     service.postMessage = (msg) => {
       console.log('send message', service.getUser());
       socket.emit('add:message', { message: msg, user: service.getUser(), room: service.getRoom() });
+    };
+
+    service.changeRoom = (newId) => {
+      console.log('changign room');
+      if (newId === 'lobby') room = 'lobby';
+      else {
+        var currentUserId = store.get('profile').userInfo.id;
+        var room = [newId, currentUserId].sort().join('');
+      }
+      service.setRoom(room);
+      console.log('room name', service.getRoom());
+      console.log('messages', service.getMessages());
+      socket.emit('join', { user: service.getUser(), room: room })
     };
 
     return socket;

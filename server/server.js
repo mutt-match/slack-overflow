@@ -30,17 +30,31 @@ const users = {};
 // });
 var participants = [];
 var nameCounter  = 1;
+var disconnected = {};
 
 io.on('connection', function(socket) {
-  console.log('CHAT SERVER CONNECTION SUCCESSFUL');
+
+  var room = null;
+
+  console.log(`socket connected at ${socket.id}`);
+
   socket.on("add:user", function(data) {
-    socket.join(data.room);
     var name = data.name || "Guest " + nameCounter++;
+    userId = data.id;
+    
+    if (disconnected[socket]) return;
+
+    console.log('add participants before', participants);
+    
     participants.push({ 
-      socket: data.socket,
+      socket: socket.id,
       id: data.id,
       name: name 
     });
+
+    console.log('add participants after', participants);
+
+    socket.join(data.room);
 
     io.sockets.emit("new:user", {
       user: {
@@ -54,18 +68,17 @@ io.on('connection', function(socket) {
     });
   });
 
-  socket.on("join", function(data) {
-    console.log(data.room);
+  socket.on("join", (data) => {
     socket.join(data.room);
     io.to(data.room).emit("new:message", {
       user: data.user,
       sender:"system",
       created_at: new Date().toISOString(),
-      message: data.message
+      message: "joined room"
     });
   });
 
-  socket.on("add:message", function(data) {
+  socket.on("add:message", (data) => {
     console.log(data);
     io.to(data.room).emit("new:message", {
       user: data.user,
@@ -75,6 +88,19 @@ io.on('connection', function(socket) {
     });
   });
 
+  socket.on("disconnect", () => {
+    disconnected[socket.id] = true;
+    console.log('socket id', socket.id)
+    console.log('disconnect participants before', participants);
+    participants.forEach((user, idx)=> {
+      if (user.socket === socket.id) {
+        participants.splice(idx, 1);
+      }
+    });
+    console.log('disconnect participants after', participants);
+    io.sockets.emit('disconnect:user', { participants: participants });
+  });
+  
   // socket.on('join', function(email, callback) {
   //   console.log('USER JOINED, email: ', email);
   //   socket.email = email;

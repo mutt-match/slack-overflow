@@ -9,7 +9,9 @@
           user: '<',
           messages: '<',
           postMessage: '<',
-          changeName: '<'
+          changeName: '<',
+          changeRoom: '<',
+          room: '<'
         },
         controller: 'ChatCtrl',
         templateUrl: './public/components/chat/state/chat.html',

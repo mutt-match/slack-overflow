@@ -129,7 +129,12 @@ padding-bottom:10px;
 }
 
 p.participant {
-  font-size: 22px;
+  font-size: 18px;
+}
+
+p.lobby {
+  font-size: 30px;
+  font-weight: bold;
 }
 
 md-input-container.message {

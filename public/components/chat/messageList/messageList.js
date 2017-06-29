@@ -5,7 +5,8 @@
     .module('slackOverflowApp')
     .component('messageList', {
       bindings: {
-        messages: '<'
+        messages: '<',
+        room: '<'
       },
       templateUrl: './public/components/chat/messageList/messageList.html',
       controller: 'MessageListCtrl'
