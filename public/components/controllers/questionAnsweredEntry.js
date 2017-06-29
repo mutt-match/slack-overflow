@@ -83,9 +83,9 @@
 
 
       stackService.getStackAnswers()
-        .then(resp => {
-          vm.stackAnswers = resp;
-          $log.info('stack answers AFTER', vm.stackAnswers);
+        .then(queryResults => {
+          vm.stackAnswers = queryResults.items;
+          $log.info('vm.stackAnswers', vm.stackAnswers);
         })
         .catch(err => $log.info(err));
 
