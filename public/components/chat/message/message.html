@@ -2,7 +2,7 @@
   <!--<img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />-->
   <div class="md-list-item-text">
     <h3>{{$ctrl.message.user.name}}</h3>
-    <p>{{$ctrl.message.message}}</p>
+    <p>{{$ctrl.message.message}}</p><span class="timestamp">{{$ctrl.message.created_at | fromNowFilter}}</span>
   </div>
 <md-divider ></md-divider>
 </md-list-item>
