@@ -3,8 +3,9 @@
 
   .service('stackService', ['$http', '$log', function($http, $log) {
 
-    this.getAnswers = () => {
-      $log.info('hola chola');
+    this.getAnswers = (data) => {
+      console.log('###', data);
+
     }
 
   }])
