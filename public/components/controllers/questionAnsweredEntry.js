@@ -10,7 +10,10 @@
       vm.notClicked = true;
       vm.repAdded = false;
 
-      vm.stackAnswers = [5, 4, 3, 2, 1];
+      vm.stackAnswers = [];
+      vm.fakeStackAnswers = [{ title: 'Fake Title 1' }, { title: 'Fake Title 2' }, { title: 'Fake Title 3' }]; //save API quota
+      vm.fakeMode = true;
+
 
       vm.closeQuestion = () => {
         QuestionsService.closeQuestion(vm.questionId)
@@ -81,11 +84,12 @@
           })
       };
 
-
       stackService.getStackAnswers()
         .then(queryResults => {
           vm.stackAnswers = queryResults.items;
+          vm.stackAnswers.length = 5;
           $log.info('vm.stackAnswers', vm.stackAnswers);
+          $log.info('question:', vm.questionAndAnswers.question[0].text);
         })
         .catch(err => $log.info(err));
 

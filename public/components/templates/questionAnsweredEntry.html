@@ -35,12 +35,15 @@
     <button class="btn btn-success" ng-click="ctrl.postAnswer()" ui-sref="questionsAnsweredList">Submit Comment</button>
     <button class="btn btn-danger" ng-click="ctrl.closeQuestion()" ui-sref="questionsAnsweredList">Close Question</button>
   </div>
-
-  <div class="Answers" ng-repeat="stackAnswer in ctrl.stackAnswers">
-    {{stackAnswer.title}}
+  <br>
+  <md-list class="stack-answers" ng-repeat="stackAnswer in ctrl.stackAnswers track by $index">
+    <div class="md-no-sticky" class="md-list-item-text" layout="column">
+      <div>{{$index +1}} {{stackAnswer.title}}</div>
+    </div>
+    <md-list-item>
+    </md-list-item>
     <br>
-  </div>
-
+  </md-list>
   <br>
   <br>
   <br>

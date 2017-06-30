@@ -32,9 +32,6 @@
       $httpProvider.interceptors.push('redirect');
       $httpProvider.interceptors.push('jwtInterceptor');
 
-      console.log('jwtOptionsProvider', jwtOptionsProvider);
-
-
       jwtOptionsProvider.config({
         whiteListedDomains: [
         'self',
