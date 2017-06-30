@@ -28,10 +28,10 @@
           $location.path('/home1');
           authService.registerUser(profile);
           // userService.getUserInfo(profile);
-          console.log('this is profile upon login', store.get('profile'));
+          $log.log('profile:', store.get('profile'));
           vm.stackAuth();
         }, function(error) {
-          console.log('login error', error);
+          $log.log('login error', error);
         });
       };
 

@@ -19,7 +19,7 @@ const fieldDummy = [
   { name: "Node.js" },
   { name: "SQL" },
   { name: "noSQL" },
-  { name: "General" }
+  { name: "Other" }
 ];
 
 const questionDummy = [

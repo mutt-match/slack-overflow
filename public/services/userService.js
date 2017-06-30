@@ -17,7 +17,7 @@
       'Node.js': 7,
       SQL: 8,
       noSQL: 9,
-      General: 10
+      Other: 10
     };
 
     this.getUserInfo = (data) => {
