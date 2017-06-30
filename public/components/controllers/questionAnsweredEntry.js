@@ -9,11 +9,10 @@
       vm.questionAndAnswers;
       vm.notClicked = true;
       vm.repAdded = false;
+      vm.questionsList = [];
       vm.currentQuestion = {};
 
       vm.stackAnswers = [];
-      vm.fakeStackAnswers = [{ title: 'Fake Title 1' }, { title: 'Fake Title 2' }, { title: 'Fake Title 3' }]; //save API quota
-      vm.fakeMode = true;
 
 
       vm.closeQuestion = () => {
@@ -39,7 +38,7 @@
       QuestionsService.getQuestion()
         .then((question) => {
           obj = question.data;
-          console.log('obj', obj);
+
         })
         .then(() => {
           var output = {
@@ -66,8 +65,17 @@
           }
           vm.questionAndAnswers = output;
           vm.currentQuestion = vm.questionAndAnswers.question[0];
+          return vm.currentQuestion;
           console.log('question and answers ', vm.questionAndAnswers);
-          console.log('vm.currentQuestion ', vm.currentQuestion);
+          console.log('vm.currentQuestion ', vm.currentQuestion); 
+        })
+        .then(question => {
+          stackService.getStackAnswers(question)
+            .then(queryResults => {
+              vm.stackAnswers = queryResults.items;
+              vm.stackAnswers.length = 5;
+              $log.info('Stack Overflow Answers:', vm.stackAnswers);
+            })
         })
         .catch((err) => {
           console.error('error fetching question and answers ', err);
@@ -81,20 +89,11 @@
 
         QuestionsService.postAnswer(body, vm.questionId)
           .then((answer) => {
-            console.log('answer: ', answer)
-            console.log(vm.questionAndAnswers.answer)
+            $log.log('answer: ', answer)
+            $log.log(vm.questionAndAnswers.answer)
               //get this to auto update ng-repeat
           })
       };
-
-      stackService.getStackAnswers(vm.currentQuestion)
-        .then(queryResults => {
-          vm.stackAnswers = queryResults.items;
-          vm.stackAnswers.length = 5;
-          $log.info('vm.stackAnswers', vm.stackAnswers);
-          $log.info('question:', vm.questionAndAnswers.question[0].text);
-        })
-        .catch(err => $log.info(err));
 
 
 

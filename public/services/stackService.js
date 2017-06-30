@@ -9,7 +9,7 @@ angular.module('slackOverflowApp')
   let urlParts = {
     base: 'https://api.stackexchange.com',
     tags: ['mongoose'],
-    titles: [],
+    titles: [], //don't use :(
     version: '2.2',
     method: 'search', //question, answer, etc
     order: 'desc',
@@ -32,16 +32,17 @@ angular.module('slackOverflowApp')
     }
   };
 
-  let makeTags = function() {
-    return QuestionsService.getQuestion()
-      .then(question => {
-        $log.info('question#', question);
-        let tags = parseCurrentQuestion(question);
-        $log.info('tags#', urlParts.tags);
-        urlParts.tags = tags;
-        return tags;
-      })
-      .catch(err => $log.log('err with QuestionsService', err));
+  let makeTags = function(question) {
+    if (typeof question === 'object') {
+      let titleAndTextWords = question.title 
+        // + ' ' + question.text
+        .replace(/[^\w\s]/gi, '');
+
+      urlParts.tags = titleAndTextWords.split(' ');
+      return urlParts.tags;
+    } else {
+      $log.info('Can\'t make tags from what you gave me.')
+    };
   };
 
   let makeQueryUrl = function(p) {
@@ -50,19 +51,19 @@ angular.module('slackOverflowApp')
     if (p.titles.length) { url += '&intitle=' + p.titles.join('&') };
     url += '&site=' + p.site
     return url;
-  }
+  };
 
 
 
-  this.getStackAnswers = function() {
+  this.getStackAnswers = function(question) {
+    let tags = makeTags(question);
     let queryUrl = makeQueryUrl(urlParts);
-    let tags = makeTags();
     return $http.get(queryUrl)
       .then(resp => {
         queryData = resp.data;
-        $log.info('queryData', queryData);
-        $log.info('tags$', urlParts.tags);
-        $log.info(queryUrl)
+        $log.info('tags:', urlParts.tags);
+        $log.info('queryUrl:', queryUrl)
+        $log.info('queryData:', queryData);
         return queryData;
       })
 

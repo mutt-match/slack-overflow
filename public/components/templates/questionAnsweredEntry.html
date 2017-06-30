@@ -36,11 +36,14 @@
     <button class="btn btn-danger" ng-click="ctrl.closeQuestion()" ui-sref="questionsAnsweredList">Close Question</button>
   </div>
   <br>
-  <md-list class="stack-answers" ng-repeat="stackAnswer in ctrl.stackAnswers track by $index">
+  <md-list class="stack-answers" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
+    Stack Overflow Answers
     <div class="md-no-sticky" class="md-list-item-text" layout="column">
-      <div>{{$index +1}} {{stackAnswer.title}}</div>
+      <md-list-item ng-repeat="stackAnswer in ctrl.stackAnswers track by $index">
+        <div ng-src="" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
+          <a href="{{stackAnswer.link}}">{{stackAnswer.title}}</a>
+        </div>
     </div>
-    <md-list-item>
     </md-list-item>
     <br>
   </md-list>
