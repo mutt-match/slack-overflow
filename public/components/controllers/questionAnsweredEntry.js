@@ -9,6 +9,7 @@
       vm.questionAndAnswers;
       vm.notClicked = true;
       vm.repAdded = false;
+      vm.currentQuestion = {};
 
       vm.stackAnswers = [];
       vm.fakeStackAnswers = [{ title: 'Fake Title 1' }, { title: 'Fake Title 2' }, { title: 'Fake Title 3' }]; //save API quota
@@ -64,7 +65,9 @@
             output.answer.push(answer);
           }
           vm.questionAndAnswers = output;
+          vm.currentQuestion = vm.questionAndAnswers.question[0];
           console.log('question and answers ', vm.questionAndAnswers);
+          console.log('vm.currentQuestion ', vm.currentQuestion);
         })
         .catch((err) => {
           console.error('error fetching question and answers ', err);
@@ -84,7 +87,7 @@
           })
       };
 
-      stackService.getStackAnswers()
+      stackService.getStackAnswers(vm.currentQuestion)
         .then(queryResults => {
           vm.stackAnswers = queryResults.items;
           vm.stackAnswers.length = 5;
