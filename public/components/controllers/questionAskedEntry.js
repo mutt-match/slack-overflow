@@ -45,15 +45,16 @@
           console.error('error fetching question and answers ', err);
         })
 
-      vm.addToFavorite = () => {
+      vm.addToFavorite = (question) => {
         vm.favorited = true;
-        console.log('inside questAskedEntry questionId-->',vm.questionId);
-        console.log('questionService in questionAsked-->', QuestionsService.addToFavorite);
-        QuestionsService.addToFavorite(vm.questionId)
+        console.log('inside questAskedEntry question-->', question);
+        console.log('questionService in questionAsked-->', QuestionsService.addToFavorite(vm.questionId));
+        let userId = store.get('profile').userInfo.id;
+        console.log('userId in questionAsked->', userId); 
+        QuestionsService.addToFavorite(userId, vm.questionId)
         .then(() => {
           vm.notClicked = false;
           console.log('!!Added to Favorite');
-          userService.getUserInfo(store.get('profile'));
         })
         .catch((err) => { 
           console.log('Error in questAskedEntry', err);

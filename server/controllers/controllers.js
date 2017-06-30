@@ -1,5 +1,6 @@
 const {
   User,
+  User_Quest_Fav,
   Question,
   Answer,
   Field,
@@ -167,34 +168,17 @@ const addReputation = (req, res) => {
 const addFavorite = (req, res) => {
   console.log('req.paramsId-->', req.params.id);
   let favUserId = req.params.id;
-  let outerUser;
   console.log('req.questionId-->',req.body.questionId);
-
-  User.find({ where: {id: favUserId}})
-    .then((user) => { 
-      console.log(user);
-      outerUser = user;
-      Question.find({ where: {
-        id: req.body.questionId
-      }}).then((question) => {
-       console.log('question in db controller, question', question)
-        outerUser.setQuestions([question]);
-      })
-    })
-    // .then((user) => {
-    //   console.log('user info-->',user);
-    //   let newFav = user.dataValues.User_Quest_Fav;//undone;
-    //   console.log('newFav',newFav);
-    //   User.update({
-    //     favorite : newFav
-    //   }, {where: { id: favUserId}})
-    // })
-    .then(() => {
-      res.sendStatus(201, 'successful favorite');
-    })
-    .catch((err) => {
-      console.log('error addding favorite', err);
-    })
+  User_Quest_Fav.create({
+    userId: favUserId,
+    questionId: req.body.questionId
+  })
+  .then(() => {
+    res.sendStatus(201, 'successful favorite');
+  })
+  .catch((err) => {
+    console.log('error addding favorite', err);
+  })
 }
 
 const fetchUserInfo = (req, res) => {
