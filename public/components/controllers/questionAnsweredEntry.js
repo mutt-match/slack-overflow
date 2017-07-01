@@ -11,6 +11,28 @@
       vm.repAdded = false;
       vm.questionsList = [];
       vm.currentQuestion = {};
+      vm.myVar = true;
+      vm.answerType = 'Stack Overflow';
+      vm.isActive = false;
+      vm.Comments = false;
+
+      vm.toggle = () => {
+        vm.myVar = !vm.myVar;
+        vm.isActive = !vm.isActive;
+
+        if (vm.myVar) {
+          vm.answerType = 'Stack Overflow';
+        } else {
+          vm.answerType = 'Slack Overflow';
+        }
+
+        if (vm.isActive) {
+          $log.info('blue');
+        } else {
+          $log.info('red');
+        }
+
+      }
 
       vm.stackAnswers = [];
 
@@ -67,7 +89,7 @@
           vm.currentQuestion = vm.questionAndAnswers.question[0];
           return vm.currentQuestion;
           console.log('question and answers ', vm.questionAndAnswers);
-          console.log('vm.currentQuestion ', vm.currentQuestion); 
+          console.log('vm.currentQuestion ', vm.currentQuestion);
         })
         .then(question => {
           stackService.getStackAnswers(question)

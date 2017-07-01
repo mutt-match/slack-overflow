@@ -5,50 +5,75 @@
     <hr>
     <div class="textPadding">{{ctrl.questionAndAnswers.question[0].text}}</div>
     <div class="floatRight">
-      <div>Status: {{ctrl.questionAndAnswers.question[0].status}}</div>
+      <!-- <div>Status: {{ctrl.questionAndAnswers.question[0].status}}</div> -->
       <div>Asked By: {{ctrl.questionAndAnswers.question[0].name}}</div>
       <div><img class="smallPhotoSize" ng-src="{{ctrl.questionAndAnswers.question[0].image}}"></img>
       </div>
       <div>Reputation: {{ctrl.questionAndAnswers.question[0].reputation}}</div>
     </div>
   </div>
+  <hr>
+  <br>
   <div class="Answers">
-    <h3>{{ctrl.questionAndAnswers.answer.length}} Answer(s)</h3>
-    <div class="answerEntry" ng-repeat="answer in ctrl.questionAndAnswers.answer | orderBy: 'id'">
-      <hr>
-      <div class="textPadding">{{answer.text}}</div>
-      <div class="floatRight">
-        <div>Answered By: {{answer.name}}</div>
-        <div><img class="smallPhotoSize" ng-src="{{answer.image}}"></img>
+  
+
+    <!-- slack view -->
+    <div ng-if="ctrl.myVar">
+      <h3>{{ctrl.questionAndAnswers.answer.length || 0}}  {{ctrl.answerType}} Answer(s)</h3>
+
+      <!-- answers button -->
+      <button class="md-raised md-button" ng-class="{true: 'sl', false: 'st'}[isActive]" ng-click="ctrl.toggle()">Press to see {{ctrl.answerType}} Answers</button>
+
+      <!-- answer -->
+      <div class="answerEntry" ng-repeat="answer in ctrl.questionAndAnswers.answer | orderBy: 'id'">
+        <hr>
+        <div class="textPadding">{{answer.text}}</div>
+
+        <!-- answered by -->
+        <div class="floatRight">
+          <div>Answered By: {{answer.name}}</div>
+          <div><img class="smallPhotoSize" ng-src="{{answer.image}}"></img>
+          </div>
+          <div>Reputation: {{answer.reputation}}</div>
+          <button class="btn btn-success" ng-if="ctrl.notClicked" ng-click="ctrl.addRep(answer.userId)" ui-sref="questionAnsweredEntry({ id: ctrl.questionId })">Add Rep</button>
+          <div ng-show="ctrl.repAdded">You gave {{answer.name}} reputation</div>
         </div>
-        <div>Reputation: {{answer.reputation}}</div>
-        <button class="btn btn-success" ng-if="ctrl.notClicked" ng-click="ctrl.addRep(answer.userId)" ui-sref="questionAnsweredEntry({ id: ctrl.questionId })">Add Rep</button>
-        <div ng-show="ctrl.repAdded">You gave {{answer.name}} reputation</div>
+
+      </div>
+      <hr>
+
+      <!-- comment box -->
+      <div class="form-group paddingForm">
+        <label for="answer">
+          <h3>Comment:</h3></label>
+        <textarea class="form-control" rows="10" id="answer" ng-model="ctrl.answerBody"></textarea>
+      </div>
+
+      <!-- comment buttons -->
+      <button class="btn btn-primary" ui-sref="questionsAnsweredList">Back</button>
+      <button class="btn btn-success" ng-click="ctrl.postAnswer()" ui-sref="questionsAnsweredList">Submit Comment</button>
+      <button class="btn btn-danger" ng-click="ctrl.closeQuestion()" ui-sref="questionsAnsweredList">Close Question</button>
+
+    </div>
+  </div>
+  <!-- stack view -->
+  <div ng-if="!ctrl.myVar">
+    <h3>{{ctrl.stackAnswers.length || 0}}  {{ctrl.answerType}} Answer(s)</h3>
+
+    <!-- answers button -->
+    <button class="md-raised md-button" ng-class="{true: 'sl', false: 'st'}[isActive]" ng-click="ctrl.toggle()">Press to see {{ctrl.answerType}} Answers</button>
+
+    <!-- answer -->
+    <div class="stack-answers" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
+      <div class="md-no-sticky" class="md-list-item-text" layout="column">
+        <div ng-repeat="stackAnswer in ctrl.stackAnswers track by $index" ng-if="!ctrl.myVar">
+          <hr>
+          <div class="stackAnswerEntry" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
+            <a ng-href="{{stackAnswer.link}}">{{stackAnswer.title}}</a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="form-group paddingForm">
-      <label for="answer">
-        <h3>Comment:</h3></label>
-      <textarea class="form-control" rows="10" id="answer" ng-model="ctrl.answerBody"></textarea>
-    </div>
-    <button class="btn btn-primary" ui-sref="questionsAnsweredList">Back</button>
-    <button class="btn btn-success" ng-click="ctrl.postAnswer()" ui-sref="questionsAnsweredList">Submit Comment</button>
-    <button class="btn btn-danger" ng-click="ctrl.closeQuestion()" ui-sref="questionsAnsweredList">Close Question</button>
-  </div>
-  <br>
-  <md-list class="stack-answers" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
-    Stack Overflow Answers
-    <div class="md-no-sticky" class="md-list-item-text" layout="column">
-      <md-list-item ng-repeat="stackAnswer in ctrl.stackAnswers track by $index">
-        <div ng-src="" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
-          <a href="{{stackAnswer.link}}">{{stackAnswer.title}}</a>
-        </div>
-    </div>
-    </md-list-item>
     <br>
-  </md-list>
-  <br>
-  <br>
-  <br>
-  <br>
-  <!-- -- -->
+    <br>
+    <br>

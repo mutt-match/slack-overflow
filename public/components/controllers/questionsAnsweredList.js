@@ -21,9 +21,10 @@
             question.id = answersObj.results[0].questions[i].id;
             question.title = answersObj.results[0].questions[i].title;
             question.text = answersObj.results[0].questions[i].text;
-            question.field = answersObj.results[0].questions[i].field.name;
+            question.field = answersObj.results[0].questions[i].field.name; //here
             vm.questionsList.push(question);
           }
+          $log.log('question BUG', question);
         })
         .catch(err => $log.error('error fetching questions for user ', err));
 

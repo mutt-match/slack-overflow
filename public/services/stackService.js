@@ -36,7 +36,7 @@ angular.module('slackOverflowApp')
     if (typeof question === 'object') {
       let titleAndTextWords = question.title 
         // + ' ' + question.text
-        .replace(/[^\w\s]/gi, '');
+        .replace(/[^\w\s\-]/gi, '');
 
       urlParts.tags = titleAndTextWords.split(' ');
       return urlParts.tags;
