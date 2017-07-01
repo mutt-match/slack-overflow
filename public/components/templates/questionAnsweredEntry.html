@@ -19,7 +19,7 @@
 
     <!-- slack view -->
     <div ng-if="ctrl.myVar">
-      <h3>{{ctrl.questionAndAnswers.answer.length || 0}}  {{ctrl.answerType}} Answer(s)</h3>
+      <h3>{{ctrl.questionAndAnswers.answer.length || 0}}  {{ctrl.answerType}} Answer <span ng-if="ctrl.questionAndAnswers.answer.length !== 1">s</h3>
 
       <!-- answers button -->
       <button class="md-raised md-button" ng-class="{true: 'sl', false: 'st'}[isActive]" ng-click="ctrl.toggle()">Press to see {{ctrl.answerType}} Answers</button>
@@ -58,7 +58,7 @@
   </div>
   <!-- stack view -->
   <div ng-if="!ctrl.myVar">
-    <h3>{{ctrl.stackAnswers.length || 0}}  {{ctrl.answerType}} Answer(s)</h3>
+    <h3>{{ctrl.stackAnswers.length || 0}}  {{ctrl.answerType}} Answer<span ng-if="ctrl.stackAnswers.length !== 1">s</h3>
 
     <!-- answers button -->
     <button class="md-raised md-button" ng-class="{true: 'sl', false: 'st'}[isActive]" ng-click="ctrl.toggle()">Press to see {{ctrl.answerType}} Answers</button>
@@ -67,7 +67,7 @@
     <div class="stack-answers" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
       <div class="md-no-sticky" class="md-list-item-text" layout="column">
         <div ng-repeat="stackAnswer in ctrl.stackAnswers track by $index" ng-if="!ctrl.myVar">
-          <hr>
+  <!--         <hr> -->
           <div class="stackAnswerEntry" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
             <a ng-href="{{stackAnswer.link}}">{{stackAnswer.title}}</a>
           </div>

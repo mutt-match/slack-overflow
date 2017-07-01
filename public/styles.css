@@ -139,8 +139,10 @@ table.table.tableEntry td {
 }
 
 .stackAnswerEntry {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
   font-size: 20px;
-  padding-bottom: 25px;
   color: black;
   background-color: WhiteSmoke;
 }
