@@ -4,9 +4,8 @@ const config = require('../../config');
 if (process.env.MODE === 'production') {
   var dbUrl = process.env.DB_URL;
 } else {
-  var dbUrl = config;
+  var dbUrl = config.dbUrl;
 }
-console.log('db url', dbUrl);
 
 const db = new Sequelize(dbUrl, {
     pool: {
