@@ -134,10 +134,10 @@ Field.belongsToMany(User, {
 });
 
 User.belongsToMany(Question, {
-  through: 'User_Quest_Fav',
+  through: User_Quest_Fav,
 });
 Question.belongsToMany(User, {
-  through: 'User_Quest_Fav',
+  through: User_Quest_Fav,
 });
 
 
