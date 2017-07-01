@@ -105,6 +105,14 @@ const User_Field = db.define('user_field', {
   }
 });
 
+const User_Quest_Fav = db.define('User_Quest_Fav', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  }
+});
+
 User.hasMany(Question);
 Question.belongsTo(User);
 
@@ -125,6 +133,13 @@ Field.belongsToMany(User, {
   through: User_Field,
 });
 
+User.belongsToMany(Question, {
+  through: 'User_Quest_Fav',
+});
+Question.belongsToMany(User, {
+  through: 'User_Quest_Fav',
+});
+
 
 module.exports = {
   User: User,
@@ -137,5 +152,6 @@ module.exports = {
   questionDummy: questionDummy,
   answerDummy: answerDummy,
   fieldDummy: fieldDummy,
-  user_fieldDummy: user_fieldDummy
+  user_fieldDummy: user_fieldDummy,
+  User_Quest_Fav: User_Quest_Fav
 }

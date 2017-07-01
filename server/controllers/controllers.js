@@ -1,5 +1,6 @@
 const {
   User,
+  User_Quest_Fav,
   Question,
   Answer,
   Field,
@@ -164,6 +165,22 @@ const addReputation = (req, res) => {
     })
 }
 
+const addFavorite = (req, res) => {
+  console.log('req.paramsId-->', req.params.id);
+  let favUserId = req.params.id;
+  console.log('req.questionId-->',req.body.questionId);
+  User_Quest_Fav.create({
+    userId: favUserId,
+    questionId: req.body.questionId
+  })
+  .then(() => {
+    res.sendStatus(201, 'successful favorite');
+  })
+  .catch((err) => {
+    console.log('error addding favorite', err);
+  })
+}
+
 const fetchUserInfo = (req, res) => {
   User.find({
       where: { id: req.params.id },
@@ -222,5 +239,6 @@ module.exports = {
   addReputation: addReputation,
   fetchUserInfo: fetchUserInfo,
   closeQuestion: closeQuestion,
-  fetchUserByName: fetchUserByName
+  fetchUserByName: fetchUserByName,
+  addFavorite: addFavorite
 }

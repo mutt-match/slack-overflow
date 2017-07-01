@@ -6,13 +6,15 @@ if (process.env.MODE === 'production') {
 } else {
   var dbUrl = config;
 }
+console.log('db url', dbUrl);
 
-const db = new Sequelize(config, {
-  pool: {
-    max: 3,
-    min: 0,
-    idle: 10000
-  }
+const db = new Sequelize(dbUrl, {
+    pool: {
+      max: 3,
+      min: 0,
+      idle: 10000
+    }
 });
+
 
 module.exports = db;

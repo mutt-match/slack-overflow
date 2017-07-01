@@ -10,6 +10,12 @@
       <div>Asked By: {{ctrl.questionAndAnswers.question[0].name}}</div>
       <div><img class="smallPhotoSize" ng-src="{{ctrl.questionAndAnswers.question[0].image}}"></img></div>
       <div>Reputation: {{ctrl.questionAndAnswers.question[0].reputation}}</div>
+      <div>
+        <button class="btn btn-success"
+                ng-if="ctrl.notClicked"
+                ng-click="ctrl.addToFavorite(ctrl.questionId)"
+                ui-sref="questionAskedEntry({id: ctrl.questionId})">Favorite</button>
+      </div>
     </div>
   </div>
 
