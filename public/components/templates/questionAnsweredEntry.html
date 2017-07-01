@@ -68,6 +68,7 @@
       <div class="md-no-sticky" class="md-list-item-text" layout="column">
         <div ng-repeat="stackAnswer in ctrl.stackAnswers track by $index" ng-if="!ctrl.myVar">
           <div class="stackAnswerEntry" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
+            <img class="smallPhotoSize" ng-src="http://bit.ly/2taB3WI">
             <a ng-href="{{stackAnswer.link}}">{{stackAnswer.title}}</a>
             <div>Tags: {{stackAnswer.tags.join(", ")}}</div>
           </div>
