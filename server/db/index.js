@@ -1,13 +1,13 @@
 const Sequelize = require('sequelize');
-const dbUrl = require('../../config');
+const config = require('../../config');
 
 if (process.env.MODE === 'production') {
-  let dbUrl = process.env.DB_URL;
+  var dbUrl = process.env.DB_URL;
 } else {
-  let dbUrl = config.dbUrl;
+  var dbUrl = config;
 }
 
-const db = new Sequelize(config.dbUrl, {
+const db = new Sequelize(config, {
   pool: {
     max: 3,
     min: 0,
