@@ -143,6 +143,7 @@ Question.belongsToMany(User, {
 
 module.exports = {
   User: User,
+  User_Quest_Fav: User_Quest_Fav,
   Question: Question,
   Answer: Answer,
   Field: Field,
@@ -153,5 +154,4 @@ module.exports = {
   answerDummy: answerDummy,
   fieldDummy: fieldDummy,
   user_fieldDummy: user_fieldDummy,
-  User_Quest_Fav: User_Quest_Fav
 }
