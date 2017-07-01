@@ -6,4 +6,4 @@ node_modules
 
 /config.js
 auth.config.js
-config
+config/index.js
