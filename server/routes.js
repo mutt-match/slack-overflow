@@ -23,7 +23,7 @@ router.get('/questions/user/:id', authCheck, controller.fetchQuestionsForUser);
 router.post('/questions', authCheck, controller.postQuestion);
 router.post('/questions/:id', authCheck, controller.postAnswer);
 
-router.post('/favorite/:id'/*, authCheck*/, controller.addFavorite);
+router.post('/favorite/:id', authCheck, controller.addFavorite);
 
 router.put('/questions/close/:id', authCheck, controller.closeQuestion);
 
