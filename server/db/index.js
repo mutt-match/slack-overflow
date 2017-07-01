@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const config = require('../../config');
+const config = require('../../config.example.js');
 
 if (process.env.MODE === 'production') {
   var dbUrl = process.env.DB_URL;
