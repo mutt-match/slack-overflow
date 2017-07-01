@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const controller = require('./controllers/controllers');
 const jwt = require('express-jwt');
-const config = require('../config');
+const config = require('../example.config,js');
 
 // const authCheck = jwt({
 //   secret: new Buffer(config.secret),
