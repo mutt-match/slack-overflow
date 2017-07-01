@@ -1,24 +1,52 @@
 (function() {
-  angular
-    .module('slackOverflowApp')
-    .controller('questionAnsweredEntryCtrl', ['QuestionsService', 'store', '$stateParams', 'userService', 
-      function(QuestionsService, store, $stateParams, userService) {
-      
+  angular.module('slackOverflowApp')
+
+  .controller('questionAnsweredEntryCtrl', ['$http', '$log', 'stackService', 'QuestionsService', 'store', '$stateParams', 'userService',
+      function($http, $log, stackService, QuestionsService, store, $stateParams, userService) {
+
       var vm = this;
       vm.questionId = $stateParams.id;
       vm.questionAndAnswers;
       vm.notClicked = true;
       vm.repAdded = false;
+      vm.questionsList = [];
+      vm.currentQuestion = {};
+      vm.myVar = true;
+      vm.answerType = 'See Stack Overflow Results by Tag';
+      vm.isActive = false;
+      vm.Comments = false;
+      vm.stackTags = '';
+
+      vm.toggle = () => {
+        vm.myVar = !vm.myVar;
+        vm.isActive = !vm.isActive;
+
+        if (vm.myVar) {
+          vm.answerType = 'See Stack Overflow Results by Tag';
+        } else {
+          vm.answerType = 'See Slack Overflow Answers';
+        }
+
+        if (vm.isActive) {
+          $log.info('blue');
+        } else {
+          $log.info('red');
+        }
+
+      }
+
+      vm.stackAnswers = [];
+
 
       vm.closeQuestion = () => {
-        QuestionsService.closeQuestion(vm.questionId) 
+        QuestionsService.closeQuestion(vm.questionId)
           .then(() => {
             console.log('successfully closed the question');
           })
           .catch((err) => {
             console.error('error closing question ', err);
           })
-      }
+      };
 
       vm.addRep = (userId) => {
         vm.repAdded = true;
@@ -28,12 +56,12 @@
             console.log('successfully added reputation');
             userService.getUserInfo(store.get('profile'));
           })
-      }
+      };
 
       QuestionsService.getQuestion()
         .then((question) => {
           obj = question.data;
-          console.log(obj);
+
         })
         .then(() => {
           var output = {
@@ -59,25 +87,38 @@
             output.answer.push(answer);
           }
           vm.questionAndAnswers = output;
+          vm.currentQuestion = vm.questionAndAnswers.question[0];
+          return vm.currentQuestion;
           console.log('question and answers ', vm.questionAndAnswers);
+          console.log('vm.currentQuestion ', vm.currentQuestion);
+        })
+        .then(question => {
+          stackService.getStackAnswers(question)
+            .then(queryResults => {
+              vm.stackAnswers = queryResults.items;
+              vm.stackAnswers.length = 5;
+              $log.info('Stack Overflow Answers:', vm.stackAnswers);
+            })
         })
         .catch((err) => {
           console.error('error fetching question and answers ', err);
-        })
+        });
 
-      vm.postAnswer = function () {
+      vm.postAnswer = function() {
         var body = {
           userId: store.get('profile').userInfo.id,
           text: vm.answerBody
-        }
+        };
 
         QuestionsService.postAnswer(body, vm.questionId)
-        .then((answer) => {
-          console.log('answer: ' , answer)
-          console.log(vm.questionAndAnswers.answer)
-          //get this to auto update ng-repeat
-        })
-      }
+          .then((answer) => {
+            $log.log('answer: ', answer)
+            $log.log(vm.questionAndAnswers.answer)
+              //get this to auto update ng-repeat
+          })
+      };
+
+
 
     }])
 })();

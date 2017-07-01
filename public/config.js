@@ -1,9 +1,9 @@
 (function() {
   'use strict';
-  angular
-    .module('slackOverflowApp')
-    .config(['$provide', 'authProvider', '$urlRouterProvider', '$stateProvider', '$httpProvider', 'jwtInterceptorProvider', 
-    function($provide, authProvider, $urlRouterProvider, $stateProvider, $httpProvider, jwtInterceptorProvider){
+  angular.module('slackOverflowApp')
+
+  .config(['jwtOptionsProvider', '$sceDelegateProvider', '$provide', 'authProvider', '$urlRouterProvider', '$stateProvider', '$httpProvider', 'jwtInterceptorProvider',
+    function(jwtOptionsProvider, $sceDelegateProvider, $provide, authProvider, $urlRouterProvider, $stateProvider, $httpProvider, jwtInterceptorProvider) {
       // INSEOK
       jwtInterceptorProvider.tokenGetter = function(store) {
         return store.get('id_token');
@@ -31,6 +31,15 @@
       $provide.factory('redirect', redirect);
       $httpProvider.interceptors.push('redirect');
       $httpProvider.interceptors.push('jwtInterceptor');
+
+      jwtOptionsProvider.config({
+        whiteListedDomains: [
+        'self',
+        'localhost',
+        'https://stackoverflow.com/',
+        'https://api.stackexchange.com/'
+        ]
+      });
 
 
       $stateProvider
@@ -74,14 +83,14 @@
 
           }
         })
-        .state('questionsAskedList', { 
+        .state('questionsAskedList', {
           url: '/questions',
           templateUrl: 'public/components/templates/questionsAskedList.html',
           controller: 'questionsAskedListCtrl',
           controllerAs: 'ctrl'
         })
         .state('questionAskedEntry', {
-          url: '/questions/:id', 
+          url: '/questions/:id',
           templateUrl: 'public/components/templates/questionAskedEntry.html',
           controller: 'questionAskedEntryCtrl',
           controllerAs: 'ctrl'

@@ -3,7 +3,6 @@
   angular
     .module('slackOverflowApp', ['auth0', 'angular-storage', 'angular-jwt', 'ngMaterial', 'ui.router', 'btford.socket-io'])
     .run(function($rootScope, auth, store, jwtHelper, $location) {
-
       $rootScope.$on('$locationChangeStart', function() {
         var token = store.get('id_token');
         if (token) {
@@ -16,6 +15,5 @@
           $location.path('/home');
         }
       })
-      
     });
 })();
