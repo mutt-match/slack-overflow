@@ -1,6 +1,6 @@
 <profile-page></profile-page>
 <div class="container">
-  <div class="questionEntry">
+  <div class="answerEntry">
     <h3 class="titlePadding">{{ctrl.questionAndAnswers.question[0].title}}</h3>
     <hr>
     <div class="textPadding">{{ctrl.questionAndAnswers.question[0].text}}</div>
@@ -15,14 +15,14 @@
   <hr>
   <br>
   <div class="Answers">
-  
+
 
     <!-- slack view -->
     <div ng-if="ctrl.myVar">
-      <h3>{{ctrl.questionAndAnswers.answer.length || 0}}  {{ctrl.answerType}} Answer <span ng-if="ctrl.questionAndAnswers.answer.length !== 1">s</h3>
+      <h3 class="results">{{ctrl.questionAndAnswers.answer.length || 0}} Result<span ng-if="ctrl.questionAndAnswers.answer.length !== 1">s</h3>
 
       <!-- answers button -->
-      <button class="md-raised md-button" ng-class="{true: 'sl', false: 'st'}[isActive]" ng-click="ctrl.toggle()">Press to see {{ctrl.answerType}} Answers</button>
+      <button class="md-raised md-button swap-btn" ng-click="ctrl.toggle()">{{ctrl.answerType}}</button>
 
       <!-- answer -->
       <div class="answerEntry" ng-repeat="answer in ctrl.questionAndAnswers.answer | orderBy: 'id'">
@@ -58,18 +58,18 @@
   </div>
   <!-- stack view -->
   <div ng-if="!ctrl.myVar">
-    <h3>{{ctrl.stackAnswers.length || 0}}  {{ctrl.answerType}} Answer<span ng-if="ctrl.stackAnswers.length !== 1">s</h3>
+    <h3 class="results">{{ctrl.stackAnswers.length || 0}} Result<span ng-if="ctrl.stackAnswers.length !== 1">s</h3>
 
     <!-- answers button -->
-    <button class="md-raised md-button" ng-class="{true: 'sl', false: 'st'}[isActive]" ng-click="ctrl.toggle()">Press to see {{ctrl.answerType}} Answers</button>
+    <button class="md-raised md-button swap-btn" ng-class="{true: 'sl', false: 'st'}[isActive]" ng-click="ctrl.toggle()">{{ctrl.answerType}}</button>
 
     <!-- answer -->
     <div class="stack-answers" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
       <div class="md-no-sticky" class="md-list-item-text" layout="column">
         <div ng-repeat="stackAnswer in ctrl.stackAnswers track by $index" ng-if="!ctrl.myVar">
-  <!--         <hr> -->
           <div class="stackAnswerEntry" ng-if="ctrl.stackAnswers[0] !== 'undefined'">
             <a ng-href="{{stackAnswer.link}}">{{stackAnswer.title}}</a>
+            <div>Tags: {{stackAnswer.tags.join(", ")}}</div>
           </div>
         </div>
       </div>

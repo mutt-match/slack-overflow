@@ -26,8 +26,9 @@ table.table td {
 }
 
 .textPadding {
-  padding-bottom: 20px;
+  padding: 20px;
   font-size: 18px;
+  background-color: WhiteSmoke;
 }
 
 table.table.tableEntry td {
@@ -126,17 +127,6 @@ table.table.tableEntry td {
   padding-top: 20px;
 }
 
-.sl {
-  background-color: gray;
-}
-
-.st {
-  background-color: orange;
-}
-
-.a1 {
-  display: inline;
-}
 
 .stackAnswerEntry {
   margin-top: 10px;
@@ -145,4 +135,14 @@ table.table.tableEntry td {
   font-size: 20px;
   color: black;
   background-color: WhiteSmoke;
+}
+
+.swap-btn {
+/*  margin-left: 675px;*/
+  background-color: red;
+}
+
+.results {
+/*  display: inline;*/
+  margin: 10px;
 }

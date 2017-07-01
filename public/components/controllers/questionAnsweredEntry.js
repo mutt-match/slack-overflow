@@ -12,18 +12,19 @@
       vm.questionsList = [];
       vm.currentQuestion = {};
       vm.myVar = true;
-      vm.answerType = 'Stack Overflow';
+      vm.answerType = 'See Stack Overflow Results by Tag';
       vm.isActive = false;
       vm.Comments = false;
+      vm.stackTags = '';
 
       vm.toggle = () => {
         vm.myVar = !vm.myVar;
         vm.isActive = !vm.isActive;
 
         if (vm.myVar) {
-          vm.answerType = 'Stack Overflow';
+          vm.answerType = 'See Stack Overflow Results by Tag';
         } else {
-          vm.answerType = 'Slack Overflow';
+          vm.answerType = 'See Slack Overflow Answers';
         }
 
         if (vm.isActive) {
