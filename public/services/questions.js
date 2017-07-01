@@ -153,6 +153,6 @@ angular.module('slackOverflowApp')
     addToFavorite: function(userId, questionId) {
       return $http.post('/favorite/' + userId, {questionId: questionId});
     }
-
+  }
     return service;
 }])
