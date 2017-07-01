@@ -1,7 +1,7 @@
 (function() {
   angular
     .module('slackOverflowApp')
-    .controller('questionsAnsweredListCtrl', ['QuestionsService', 'store', function(QuestionsService, store) {
+    .controller('questionsAnsweredListCtrl', ['stackService', '$log', 'QuestionsService', 'store', function(stackService, $log, QuestionsService, store) {
       var vm = this;
       vm.questionsList = [];
       vm.userId = store.get('profile').userInfo.id;
@@ -11,9 +11,7 @@
       QuestionsService.getQuestionsForUser(vm.userId)
         .then((resp) => {
           answersObj = resp.data;
-          console.log(answersObj);
-          // console.log('resp.data', resp.data);
-          // console.log('clicked', answersObj);
+          $log.log('Questions:', resp.data.results[0].questions);
         })
         .then(() => {
           var name = answersObj.results[0].name;
@@ -23,14 +21,14 @@
             question.id = answersObj.results[0].questions[i].id;
             question.title = answersObj.results[0].questions[i].title;
             question.text = answersObj.results[0].questions[i].text;
-            question.field = answersObj.results[0].questions[i].field.name;
+            question.field = answersObj.results[0].questions[i].field.name; //here
             vm.questionsList.push(question);
           }
-          // console.log(vm.profile);
+          $log.log('question BUG', question);
         })
-        .catch((err) => {
-          console.error('error fetching questions for user ', err);
-        })
+        .catch(err => $log.error('error fetching questions for user ', err));
+
+
 
     }])
 })();

@@ -1,8 +1,7 @@
 html {
-  background-color:white;
-  font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif
+  background-color: white;
+  font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif
 }
-
 
 .black-background {
   background-color: black;
@@ -13,7 +12,7 @@ table.table td {
 }
 
 .table>tbody>tr>td {
-  padding:20px;
+  padding: 20px;
 }
 
 .table>thead>tr>th {
@@ -22,14 +21,14 @@ table.table td {
 }
 
 .titlePadding {
-  padding-bottom:15px;
+  padding-bottom: 15px;
   margin-top: -45px;
 }
 
 .textPadding {
-  padding-bottom:20px;
-  font-size:18px;
-
+  padding: 20px;
+  font-size: 18px;
+  background-color: WhiteSmoke;
 }
 
 table.table.tableEntry td {
@@ -37,93 +36,93 @@ table.table.tableEntry td {
 }
 
 .container {
-  padding-right:100px;
-  padding-left:100px;
+  padding-right: 100px;
+  padding-left: 100px;
 }
 
 .acceptAnswer {
-  display:block;
-  margin-top:15px;
+  display: block;
+  margin-top: 15px;
 }
 
 .floatRight {
-  float:right;
-  font-size:14px;
+  float: right;
+  font-size: 14px;
   text-align: right;
 }
 
 .profileText {
-  padding-top:30px;
+  padding-top: 30px;
   text-align: center;
 }
 
-.profileText h3{
-padding-bottom:10px;
+.profileText h3 {
+  padding-bottom: 10px;
 }
 
 .photoSize {
-  max-width:170px;
+  max-width: 170px;
 }
 
 .smallPhotoSize {
-  max-width:65px;
+  max-width: 65px;
 }
 
 .questionEntry {
-  padding-bottom:50px;
+  padding-bottom: 50px;
 }
 
 .table-responsive {
-    overflow-x:inherit;
+  overflow-x: inherit;
 }
 
 .Answers {
-  padding-top:50px;
+  padding-top: 50px;
 }
 
 .paddingForm {
-  padding-top:25px;
+  padding-top: 25px;
 }
 
 .marginTop {
-  margin-top:-52px;
+  margin-top: -52px;
 }
 
 .marginPostQuestion {
-  margin-top:-64px;
+  margin-top: -64px;
 }
 
 .answerEntry {
-  padding-bottom:135px;
+  padding-bottom: 135px;
 }
 
-.bg { 
+.bg {
   width: 100%;
   height: 1000px;
-  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('images/bg.jpg');
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/bg.jpg');
   background-size: cover;
 }
 
-.bg-authenticated { 
+.bg-authenticated {
   width: 100%;
   height: 1000px;
-  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('images/bg-auth.jpg');
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/bg-auth.jpg');
   background-size: cover;
 }
 
 .homeText {
-  position:absolute;
-  color:#f6f6f6;
-  top:25%;
-  left:25%;
+  position: absolute;
+  color: #f6f6f6;
+  top: 25%;
+  left: 25%;
 }
 
 .introDesc {
-  width:60%;
+  width: 60%;
 }
 
 .chat {
-  width: 80%; 
+  <<<<<<< HEAD width: 80%;
   margin: auto;
   padding-top: 30px;
 }
@@ -152,4 +151,28 @@ span.timestamp {
   color: darkslategrey;
   font-style: italic;
   float: right;
+}
+
+chat {
+  width: 400px;
+  margin-left: 350px;
+  padding-top: 20px;
+}
+
+.stackAnswerEntry {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 20px;
+  color: black;
+  background-color: WhiteSmoke;
+}
+
+.swap-btn {
+  /*  margin-left: 675px;*/
+  background-color: red;
+}
+
+.results {
+  margin: 10px;
 }
