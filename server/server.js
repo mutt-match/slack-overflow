@@ -78,38 +78,6 @@ io.on('connection', function(socket) {
     messages[data.room].push(newMessage);
     io.to(data.room).emit("new:message", newMessage);
   });
-  // console.log('CHAT SERVER CONNECTION SUCCESSFUL');
-
-  // socket.on('join', function(email, callback) {
-  //   // console.log('USER JOINED, email: ', email);
-  //   socket.email = email;
-  //   users[socket.email] = socket;
-  //   // console.log('socket.email: ', socket.email);
-  //   // console.log('CURRENT USER LIST, users: ', users);
-  //   updateUsers();
-  // });
-
-  // socket.on('exitChatServer', function(email, callback) {
-  //   // console.log('THIS IS EXIT, EMAIL : ', email);
-  //   delete users[email];
-  //   // console.log('DELETE USERS', Object.keys(users));
-  //   updateUsers();
-  // });
-
-  // socket.on('newMessage', function(messageBody, callback) {
-  //   var sendTo = messageBody.email;
-  //   var message = messageBody.message;
-  //   messageBody.from = socket.email
-  //     // console.log('SEND TO: ', sendTo, ' MESSAGE: ', message, ' FROM: ', socket.email);
-  //     // console.log('MESSAGE BODY', messageBody);
-  //   io.emit(sendTo, messageBody);
-  //   io.emit(messageBody.from, messageBody);
-  //   // socket.emit(sendTo, message);
-  // });
-
-  // function updateUsers() {
-  //   io.sockets.emit('users', Object.keys(users));
-  // }
 
   socket.on("disconnect", () => {
     participants.forEach((user, idx) => {
@@ -120,6 +88,15 @@ io.on('connection', function(socket) {
     io.sockets.emit('disconnect:user', { socket: socket.id });
   });
 
+  socket.on("disconnect", () => {
+    participants.forEach((user, idx)=> {
+      if (user.socket === socket.id) {
+        participants.splice(idx, 1);
+      }
+    });
+    io.sockets.emit('disconnect:user', { socket: socket.id });
+  });
+  
 });
 
 init()

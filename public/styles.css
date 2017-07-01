@@ -122,7 +122,7 @@ table.table.tableEntry td {
 }
 
 .chat {
-  <<<<<<< HEAD width: 80%;
+  width: 80%;
   margin: auto;
   padding-top: 30px;
 }
@@ -140,6 +140,7 @@ md-input-container.message {
   width: 80%;
 }
 
+
 span.chat-header {
   font-size: 26px;
   font-weight: bold;
@@ -153,11 +154,11 @@ span.timestamp {
   float: right;
 }
 
-chat {
+/*chat {
   width: 400px;
   margin-left: 350px;
   padding-top: 20px;
-}
+}*/
 
 .stackAnswerEntry {
   margin-top: 10px;
@@ -176,3 +177,4 @@ chat {
 .results {
   margin: 10px;
 }
+
