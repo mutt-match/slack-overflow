@@ -10,34 +10,34 @@ const {
 
 const fetchAllQuestions = (req, res) => {
   User.findAll({
-    include: [{ 
-      model: Question,
       include: [{
-        model: Field
+        model: Question,
+        include: [{
+          model: Field
       }]
     }]
-  })
-  .then((questions) => {
-    res.json({
-      results: questions
     })
-  })
-  .catch((err) => {
-    console.error('error fetching users ', err);
-  })
+    .then((questions) => {
+      res.json({
+        results: questions
+      })
+    })
+    .catch((err) => {
+      console.error('error fetching users ', err);
+    })
 }
 
 const fetchQuestionsForUser = (req, res) => {
   let userId = req.params.id;
   User.findAll({
-    where: { id: userId },
-    include: [{ 
-      model: Question,
+      where: { id: userId },
       include: [{
-        model: Field
+        model: Question,
+        include: [{
+          model: Field
       }]
     }]
-  })
+    })
     .then((questions) => {
       res.json({
         results: questions
@@ -51,17 +51,17 @@ const fetchQuestionsForUser = (req, res) => {
 const fetchQuestionAndAnswers = (req, res) => {
   let questionId = req.params.id;
   User.findAll({
-    include: [{ 
-      model: Question,
-      where: { id: questionId },
       include: [{
-        model: Answer,
+        model: Question,
+        where: { id: questionId },
         include: [{
-          model: User
+          model: Answer,
+          include: [{
+            model: User
         }]
       }]
     }]
-  })
+    })
     .then((questions) => {
       res.json({
         results: questions
@@ -75,11 +75,11 @@ const fetchQuestionAndAnswers = (req, res) => {
 const postQuestion = (req, res) => {
   let { userId, title, text, fieldId } = req.body;
   Question.create({
-    userId: userId,
-    title: title,
-    text: text,
-    fieldId: fieldId
-  })
+      userId: userId,
+      title: title,
+      text: text,
+      fieldId: fieldId
+    })
     .then(() => {
       res.status(201).send('successfully posted question');
     })
@@ -91,10 +91,10 @@ const postQuestion = (req, res) => {
 const postAnswer = (req, res) => {
   let { userId, text } = req.body;
   Answer.create({
-    userId: userId,
-    text: text,
-    questionId: req.params.id
-  })
+      userId: userId,
+      text: text,
+      questionId: req.params.id
+    })
     .then(() => {
       res.status(201).send('successfully posted an answer ');
     })
@@ -108,10 +108,10 @@ const addUser = (req, res) => {
   let image = req.body.image;
   // let fields = req.body.fields;
   let userId;
-  User.findOrCreate({ where: { name: name }, defaults: { reputation: 0, image: image }})
-  // since only useful data returned upon login is EMAIL,
-  // and fields can't be added upon signup and need to be added in profile section after login,
-  // this field is commented out
+  User.findOrCreate({ where: { name: name }, defaults: { reputation: 0, image: image } })
+    // since only useful data returned upon login is EMAIL,
+    // and fields can't be added upon signup and need to be added in profile section after login,
+    // this field is commented out
     // .spread((user, created) => {
     //   for (let i = 0; i < fields.length; i++) {
     //     User_Field.create({
@@ -131,7 +131,7 @@ const addUser = (req, res) => {
 const updateUserFieldInfo = (req, res) => {
   let userId = req.params.id;
   let updateFields = req.body.fields;
-  User_Field.destroy({ where: { userId: userId }})
+  User_Field.destroy({ where: { userId: userId } })
     .then(() => {
       for (let j = 0; j < updateFields.length; j++) {
         User_Field.create({
@@ -150,12 +150,12 @@ const updateUserFieldInfo = (req, res) => {
 
 const addReputation = (req, res) => {
   let repUserId = req.params.id;
-  User.find({ where: { id: repUserId }})
+  User.find({ where: { id: repUserId } })
     .then((user) => {
       let newRep = user.dataValues.reputation + 50;
       User.update({
         reputation: newRep
-      }, { where: { id: repUserId }})
+      }, { where: { id: repUserId } })
     })
     .then(() => {
       res.status(201).send('successfully added reputation');
@@ -182,12 +182,12 @@ const addFavorite = (req, res) => {
 }
 
 const fetchUserInfo = (req, res) => {
-  User.find({ 
-    where: { id: req.params.id },
-    include: [{
-      model: Field
+  User.find({
+      where: { id: req.params.id },
+      include: [{
+        model: Field
     }]
-  })
+    })
     .then((user) => {
       res.json({
         results: user
@@ -199,12 +199,12 @@ const fetchUserInfo = (req, res) => {
 }
 
 const fetchUserByName = (req, res) => {
-  User.find({ 
-    where: { name: req.params.name },
-    include: [{
-      model: Field
+  User.find({
+      where: { name: req.params.name },
+      include: [{
+        model: Field
     }]
-  })
+    })
     .then((user) => {
       res.json({
         results: user
@@ -218,8 +218,8 @@ const fetchUserByName = (req, res) => {
 
 const closeQuestion = (req, res) => {
   Question.update({
-    status: false
-  },{ where: { id: req.params.id }})
+      status: false
+    }, { where: { id: req.params.id } })
     .then(() => {
       res.status(201).send('question closed');
     })

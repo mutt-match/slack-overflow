@@ -5,7 +5,8 @@ const userDummy = [
   { name: "regina", image: "http://www.freeiconspng.com/uploads/user-icon-png-person-user-profile-icon-20.png", reputation: 400 },
   { name: "kan", image: "http://www.freeiconspng.com/uploads/user-icon-png-person-user-profile-icon-20.png", reputation: 350 },
   { name: "ricky", image: "http://www.freeiconspng.com/uploads/user-icon-png-person-user-profile-icon-20.png", reputation: 550 },
-  { name: "heather", image: "http://www.freeiconspng.com/uploads/user-icon-png-person-user-profile-icon-20.png", reputation: 700 }
+  { name: "heather", image: "http://www.freeiconspng.com/uploads/user-icon-png-person-user-profile-icon-20.png", reputation: 700 },
+  { name: "nate", image: "http://www.freeiconspng.com/uploads/user-icon-png-person-user-profile-icon-20.png", reputation: 42 }
 ];
 
 const fieldDummy = [
@@ -17,7 +18,8 @@ const fieldDummy = [
   { name: "Angular" },
   { name: "Node.js" },
   { name: "SQL" },
-  { name: "noSQL" }
+  { name: "noSQL" },
+  { name: "Other" }
 ];
 
 const questionDummy = [
@@ -43,8 +45,7 @@ const answerDummy = [
   { text: "answer7", questionId: 7, userId: 2 },
   { text: "answer8", questionId: 8, userId: 4 },
   { text: "answer9", questionId: 9, userId: 3 },
-  { text: "answer10", questionId: 10, userId: 6 },
-  // { text: "test rep", questionId: 18, userId: 1}
+  { text: "answer10", questionId: 10, userId: 6 },  
 ];
 
 const user_fieldDummy = [
@@ -96,12 +97,12 @@ const Message = db.define('message', {
   text: Sequelize.TEXT
 });
 
-const User_Field = db.define('user_field', { 
-    id: {
+const User_Field = db.define('user_field', {
+  id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
-  } 
+  }
 });
 
 const User_Quest_Fav = db.define('User_Quest_Fav', {

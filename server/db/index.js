@@ -17,5 +17,4 @@ const db = new Sequelize(dbUrl, {
 });
 
 
-
 module.exports = db;
