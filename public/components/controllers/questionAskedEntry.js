@@ -1,12 +1,14 @@
 (function() {
   angular
     .module('slackOverflowApp')
-    .controller('questionAskedEntryCtrl', ['QuestionsService', 'store', '$stateParams', '$scope', '$window', 
-      function(QuestionsService, store, $stateParams, $scope, $window) {
+    .controller('questionAskedEntryCtrl', ['QuestionsService', 'store', '$stateParams', '$scope', '$window', 'userService',
+      function(QuestionsService, store, $stateParams, $scope, $window, userService) {
       
       var vm = this;
       vm.questionId = $stateParams.id;
       vm.questionAndAnswers;
+      vm.favorited = false;
+      vm.notClicked = true;
       
       QuestionsService.getQuestion()
         .then((question) => {
@@ -42,6 +44,22 @@
         .catch((err) => {
           console.error('error fetching question and answers ', err);
         })
+
+      vm.addToFavorite = (question) => {
+        vm.favorited = true;
+        console.log('inside questAskedEntry question-->', question);
+        console.log('questionService in questionAsked-->', QuestionsService.addToFavorite(vm.questionId));
+        let userId = store.get('profile').userInfo.id;
+        console.log('userId in questionAsked->', userId); 
+        QuestionsService.addToFavorite(userId, vm.questionId)
+        .then(() => {
+          vm.notClicked = false;
+          console.log('!!Added to Favorite');
+        })
+        .catch((err) => { 
+          console.log('Error in questAskedEntry', err);
+        })
+      }  
 
 
       vm.postAnswer = function () {

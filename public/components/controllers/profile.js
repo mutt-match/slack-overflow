@@ -10,7 +10,8 @@
       vm.removeField = removeField;
       
       vm.message;
-      vm.fields = vm.profile.userInfo.fields
+      console.log('vm.profile.userInfo-->', vm.profile.userInfo);
+      vm.fields = vm.profile.userInfo.fields;
 
       function getFields() {
         vm.profile = store.get('profile');

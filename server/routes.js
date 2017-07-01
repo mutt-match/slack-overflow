@@ -4,8 +4,8 @@ const jwt = require('express-jwt');
 const config = require('../config');
 
 const authCheck = jwt({
-  secret: new Buffer(config.secret),
-  audience: config.audience
+  secret: new Buffer('czR3QSYYTY6dImCfroTZqdXvpYOOwPsOJtVISE3kWyR1Q0AiEz4rVMSw_RvU5iL3'),
+  audience: 'ku4AUn23UfSipuIY4l8e8WovJ10X5XuY'
 });
 router.get('/api/public', function(req, res) {
   res.json({message: 'hello from public endpoint, you dont need to be authenticated'})
@@ -22,6 +22,8 @@ router.get('/questions/user/:id', authCheck, controller.fetchQuestionsForUser);
 
 router.post('/questions', authCheck, controller.postQuestion);
 router.post('/questions/:id', authCheck, controller.postAnswer);
+
+router.post('/favorite/:id'/*, authCheck*/, controller.addFavorite);
 
 router.put('/questions/close/:id', authCheck, controller.closeQuestion);
 
